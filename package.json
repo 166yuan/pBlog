@@ -1,0 +1,30 @@
+{
+  "name": "pblog",
+  "version": "0.0.1",
+  "description": "基于node.js的个人博客管理系统",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^2.3.4",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/166yuan/pBlog.git"
+  },
+  "keywords": [
+    "blog",
+    "mongodb",
+    "angularJs",
+    "restful"
+  ],
+  "author": "ChenSiYuan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/166yuan/pBlog/issues"
+  },
+  "homepage": "https://github.com/166yuan/pBlog#readme"
+}

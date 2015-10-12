@@ -1,0 +1,137 @@
+/*index css*/
+
+body{
+	background-color: #e6e6e6;
+}
+.wraper{
+	margin-left: 2rem;
+	margin-right:2rem;
+	padding-top: .8rem;
+	padding-bottom: .8rem;
+	background-color: #f9f9f9;
+	position: relative;
+}
+.navbar{
+	margin-top: .3rem;
+	width: 100%;
+	height: 1.3rem;
+	background: #f9f9f9;
+}
+.nav-top{
+	font-size: .3rem;
+	position: fixed;
+	top: 0;
+	right: 3rem;
+}
+.nav-top>ul>li{
+	float: left;
+	margin-right: .6rem;
+}
+
+.banner,.navbar-menu{
+	display: block;
+	margin: 0 auto;
+}
+.navbar-menu{
+	width: 14rem;
+	height: 1.4rem;
+}
+
+.navbar-menu>li{
+	font-size:.4rem; 
+	float: left;
+	margin-left: 1rem;
+}
+
+.content{
+	width: 64%;
+	background-color: #fff;
+	margin-left: 1rem;
+	font-size: .4rem;
+	border: 1px solid #dcdcdc;
+}
+
+.blog{
+	margin-left: .2rem;
+	margin-top: .2rem;
+	margin-bottom: .2rem;
+}
+.datatime{
+	color: #ddd;
+	font-size: smaller;
+}
+.btitle{
+	margin-left: .3rem;
+	color: #000;
+}
+
+aside{
+	width: 26%;
+	float: right;
+	background-color: #fff;
+	border: 1px solid #dcdcdc;
+	margin-right: 1rem;
+	margin-bottom: 1rem;
+	position: relative;
+	box-sizing:border-box;
+}
+.avator-wraper{
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	margin-top: .4rem;
+	border-radius: 50%;
+}
+
+.avator{
+	display: block;
+	border-radius: 50%;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+.username{
+	font-size: .6rem;
+	text-align: center;
+}
+footer{
+	width: 100%;
+	text-align: center;
+	font-size: .3rem;
+	margin-top: 1rem;
+	background-color: #fff;
+	position: fixed;
+	bottom:0;
+}
+
+.login-box{
+	position: relative;
+	display: block;
+	height: 6rem;
+	width: 5.6rem;
+	background: #fff;
+	margin: 0 auto;
+	margin-top: 3rem;
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
+	box-shadow: 0 1px 5px rgba(0,0,0,.15),0 1px 5px 1px rgba(0,0,0,.15);
+	transition: box-shadow 1s ease-in;
+}
+
+.nav-info{
+	font-size: .5rem;
+	text-align: center;
+	padding: .3rem .4rem;
+	border-bottom: 2px dotted #ddd;
+}
+
+.login-box:hover{
+	box-shadow: 0 1px 25px rgba(0,0,0,.15),0 1px 5px 1px rgba(0,0,0,.15);
+}
+
+.go-register{
+	position: absolute;
+	bottom: .3rem;
+    right: .1rem;
+}
