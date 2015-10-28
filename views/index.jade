@@ -1,53 +1,53 @@
 doctype html
 html(lang='en')
 head
-	meta(charset='UTF-8')
-	link(rel='stylesheet',href='http://cdn.bootcss.com/normalize/3.0.3/normalize.min.css')
+	meta(content='text/html;charset=utf-8',http-equiv='Content-Type')
+	title 个人博客
+	link(rel='stylesheet',href='/css/normalize.min.css')
+	link(rel='stylesheet',href='/font/iconfont.css')
 	link(rel='stylesheet',href='/css/common.css')
 	link(rel='stylesheet',href='/css/index.css')
-body
+	
+body(ms-controller='index')
 	div.wraper.clearfix
 		header
 			img.banner(src='img/logo.png')
 			nav.navbar
 				ul.navbar-menu.clearfix
-					li
-						a(href='#') 文章 
-					li 
-						a(href='#') 分类
-					li 
-						a(href='#') 标签
-					li
-						a(href='#') 收藏
-					li
-						a(href='#') 关于
+					li(ms-repeat='navMenu')
+						a(href='#') {{el}} 					
 			nav.nav-top
 				ul
 					li
-						a(href='#') 登录
+						a.login-btn(href='#',ms-click='triggerModal(1)') 登录
 					li 
-						a(href='#') 注册	 		
-		aside
-			div.avator-wraper
-				img.avator(src='img/avator.jpg')
-			p.username Zolo					
-		div.content
-			div.blog
-				span.datatime 2015-10-02
-				a.btitle(href='#') 基于node.js的博客系统的搭建
-			div.blog
-				span.datatime 2015-10-03
-				a.btitle(href='#') 用require.js来实现模块化加载
-			div.blog
-				span.datatime 2015-10-04
-				a.btitle(href='#') ecmascript的前世今生
-
+						a.register-btn(href='#',ms-click='triggerModal(2)') 注册
+		div.main					 		
+			aside
+				div.avator-wraper
+					img.avator(src='img/avator.jpg')
+				p.username Zolo					
+			div.content
+				div.blog
+					span.datatime 2015-10-02
+					a.btitle(href='#') 基于node.js的博客系统的搭建
+				div.blog
+					span.datatime 2015-10-03
+					a.btitle(href='#') 用require.js来实现模块化加载
+				div.blog
+					span.datatime 2015-10-04
+					a.btitle(href='#') ecmascript的前世今生
+	div.tooltip
+		a(href='#')
+			i.icon.iconfont &#xe606		
 	footer
 		p Copyright © 2015 - 166yuan - Powered by Jekyll. Github
-	div.modal
-		div.login-box
+	div.modal(ms-visible='showModal')
+		div.login-box#login(ms-visible='showLogin')
 			div.nav-info
 				span 登录系统
+				span.close(ms-click='triggerModal(-1)')
+					i.iconfont &#xe605 
 			form
 				div.form-control
 					label 账号
@@ -56,8 +56,31 @@ body
 					label 密码
 					input(type='text',placeholder='输入密码')
 				div.form-control
-					input.btn.btn-blue(type='button',value='登录')
-					input.btn.btn-blue(type='reset',value='重置')
-				a(href='#').go-register 还没账号?去注册！		
-	script(src='js/index.js')
-			
+					button.btn.btn-blue 登录
+					button.btn.btn-default 重置
+				a(href='#').go-register 还没账号?去注册！
+		div.register-box#register(ms-visible='showRegister')
+			div.nav-info
+				span 注册账号
+				span.close(ms-click='triggerModal(-1)')
+					li.iconfont &#xe605
+			form
+				div.form-control
+					label 账号
+					input(type='text',name='account',ng-model='account_reg',placeholder='输入账号')
+				div.form-control
+					label 密码
+					input(type='text',name='password',ng-model='passwd_reg',placeholder='输入密码')
+				div.form-control
+					label 确认密码
+					input(type='text',placeholder='输入密码')
+				div.form-control
+					button.btn.btn-blue(ms-click='register()') 注册
+					button.btn.btn-default 重置								 	
+	script(src='js/libs/avalon.js')
+	script(src='js/libs/require.js')
+	script(src='js/init.js')
+	script.
+		require(['m'], function(module) {
+			DS.app({index :{ '$id':'index' } });
+			});

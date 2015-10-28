@@ -1,5 +1,3 @@
-/*index css*/
-
 body{
 	background-color: #e6e6e6;
 }
@@ -105,10 +103,9 @@ footer{
 	bottom:0;
 }
 
-.login-box{
+.login-box,.register-box{
 	position: relative;
-	display: block;
-	height: 6rem;
+	height: 5.6rem;
 	width: 5.6rem;
 	background: #fff;
 	margin: 0 auto;
@@ -134,4 +131,15 @@ footer{
 	position: absolute;
 	bottom: .3rem;
     right: .1rem;
+}
+
+.close{
+	position: absolute;
+	right: .2rem;
+	top: .2rem;
+	cursor: pointer;
+}
+
+.login-btn:hover,.register-btn:hover{
+	
 }

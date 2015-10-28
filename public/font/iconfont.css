@@ -16,6 +16,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 .icon-biaoqian:before { content: "\e600"; }
+.icon-fabu:before { content: "\e606"; }
 .icon-24:before { content: "\e601"; }
 .icon-moban:before { content: "\e602"; }
 .icon-mima:before { content: "\e603"; }
