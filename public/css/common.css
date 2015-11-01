@@ -117,9 +117,8 @@ form{
 }
 
 .form-control{
-  margin: 0 auto;
   margin-top: .4rem;
-  text-align: center;
+  text-align: left;
 }
 .form-control>input[type=text],.form-control>input[type=password]{
    margin-left: .2rem;

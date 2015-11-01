@@ -1,0 +1,17 @@
+<div ng-controller="articleController" class="article-area">
+	<h3>我的博客</h3>
+	<div class="blog" ng-repeat="item in articles">
+		<span class="datatime">{{item.date}}</span>
+		<a ui-sref="adetail({articleId:item.id})" class="btitle">{{item.title}}</a>
+	</div>
+	<ul class="pagination" ng-show="pagination.totalPage>1">
+		 <li ng-class="{true:'active'}[pagination.currentPage==1]"><a href="javascript:void(0)"
+                                                          ng-click="pagination.currentPage=1;load()">首页</a></li>
+        <li ng-class="{true:'disabled'}[pagination.currentPage==1]"><a href="javascript:void(0);" ng-click="prev()">上一页</a></li>
+        <li ng-repeat="page in pagination.pages"><a href="javascript:void(0);" ng-click="loadPage(page)">{{ page }}</a></li>
+        <li ng-class="{true:'disabled'}[pagination.currentPage==pagination.totalPage]"><a href="javascript:void(0);" ng-click="next()">下一页</a>
+        </li>
+        <li ng-class="{true:'active'}[pagination.currentPage==pagination.totalPage]"><a href="javascript:void(0)"
+                                                                  ng-click="pagination.currentPage=pagination.totalPage;load()">末页</a></li>
+	</ul>
+</div>

@@ -44,7 +44,6 @@ body{
 .content{
 	width: 64%;
 	background-color: #fff;
-	margin-left: 1rem;
 	font-size: .4rem;
 	border: 1px solid #dcdcdc;
 }
@@ -68,7 +67,6 @@ aside{
 	float: right;
 	background-color: #fff;
 	border: 1px solid #dcdcdc;
-	margin-right: 1rem;
 	margin-bottom: 1rem;
 	position: relative;
 	box-sizing:border-box;
@@ -99,8 +97,7 @@ footer{
 	font-size: .3rem;
 	margin-top: 1rem;
 	background-color: #fff;
-	position: fixed;
-	bottom:0;
+	position: absolute;
 }
 
 .login-box,.register-box{
@@ -114,6 +111,9 @@ footer{
 	border-radius: 10px;
 	box-shadow: 0 1px 5px rgba(0,0,0,.15),0 1px 5px 1px rgba(0,0,0,.15);
 	transition: box-shadow 1s ease-in;
+}
+.login-box .form-control,.register-box .form-control{
+text-align: center;
 }
 
 .nav-info{
@@ -142,4 +142,43 @@ footer{
 
 .login-btn:hover,.register-btn:hover{
 	
+}
+
+.main{
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+/*here is public css*/
+.publish{
+	font-size: .3rem;
+}
+.editWraper{
+	width: 90%;
+	margin: 0 auto;
+	margin-top: .6rem;
+}
+
+.publish .form-control{
+	margin-left: 1rem;
+}
+
+.tags{
+	display: inline-block;
+	border:1px solid #ddd;
+	border-radius: 3px;
+	padding: .1rem .1rem .1rem .1rem;
+	margin-right: .3rem;
+}
+
+.tags>i{
+	cursor: pointer;
+}
+/*here is article css*/
+.article-area{
+	font-size: .5rem;
+}
+
+.article-area h2,h3,h4{
+margin: 0;
 }
