@@ -182,3 +182,14 @@ text-align: center;
 .article-area h2,h3,h4{
 margin: 0;
 }
+
+/*here is category css */
+.category-area{
+	font-size: .5rem;
+}
+
+.cateList li{
+	float: left;
+	margin-right: .6rem;
+
+}

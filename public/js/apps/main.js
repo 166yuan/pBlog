@@ -1,6 +1,6 @@
 (function () {
 	var app = angular.module('app', ['ui.router']);
-	app.controller('IndexController', ['$scope', function ($scope) {
+	app.controller('IndexController', ['$scope','$http', function ($scope,$http) {
 		$scope.showModal = $scope.showLogin = $scope.showRegister = false;
 		$scope.loginData = {
 			account: "",
@@ -40,7 +40,7 @@
 			}
 		}
 		$scope.login = function (){
-			console.log($scope.loginData);
+			
 		}
 		$scope.reset = function () {
 			for (prop in $scope.loginData) {
@@ -55,7 +55,12 @@
 			}
 		}
 		$scope.register = function() {
-
+			if($scope.registerData.passwd === $scope.registerData.repasswd){
+				$http.post("/user/register",$scope.registerData);
+			}else{
+				alert("两次输入密码必须一致");
+			}
+			
 		} 
 	}]);
 
@@ -155,6 +160,20 @@
 		$scope.init();
 	}])
 
+	app.controller('categoryController', ['$scope', function ($scope) {
+		$scope.categorys = [{
+			id:12,
+			name: "学习"
+		},{
+			id:34,
+			name: "生活"
+		},{
+			id:56,
+			name: "娱乐"
+		}];
+
+
+	}])
 
 	app.config(function ($stateProvider, $urlRouterProvider) {
  

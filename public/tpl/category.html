@@ -1,11 +1,6 @@
-<div ng-controller="categoryController">
-	<ul>
-		<li>动漫</li>
-		<li>游戏</li>
-		<li>歌曲</li>
-		<li>学习</li>
-		<li>生活</li>
-		<li>工作</li>
+<div ng-controller="categoryController" class="category-area">
+	<ul class="cateList">
+		<li ng-repeat="category in categorys"><a href="{{category.id}}">{{category.name}}</a></li>
 	</ul>
 	<a href="">编辑分类</a>
 	<div>

@@ -22,6 +22,7 @@ mongoose.connection.on('disconnected', connect);
 mongoose.connection.on('success',function(){
 	console.log('success connect to mongodb');
 });
+connect();
 
 // init model
 fs.readdirSync(join(__dirname, 'models')).forEach(function (file) {
@@ -39,7 +40,6 @@ app.use(static(__dirname+'/public'));
  	
  	if (~file.indexOf('.js')) require(join(__dirname, 'controllers', file))(app);
 });
-
 
 app.listen(3000);
 console.log('connection to service on port:' + port);
