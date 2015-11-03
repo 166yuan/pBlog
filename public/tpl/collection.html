@@ -1,8 +1,8 @@
-<div ng-controller="collectionController">
+<div ng-controller="collectionController" class="collection-area">
 	<div>
-		<h3>收藏管理</h3>
-		<ul>
-			<li><span>2015-02-04</span><a href="">如何看待js</a></li>
-		</ul>
-	</div>
+        <h4>收藏管理</h4>
+        <ul>
+            <li ng-repeat="col in collection"><span class="datatime">{{col.createTime}}</span><a href="" class="btitle">{{col.title}}</a> <span><a href="javascript:void(0)" ng-click="cancelCollection($index,col.articleId)">[取消]</a></span></li> 
+        </ul>
+    </div>
 </div>

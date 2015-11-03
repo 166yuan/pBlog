@@ -40,7 +40,11 @@
 			}
 		}
 		$scope.login = function (){
-			
+			if($scope.loginData.account !="" && $scope.loginData.passwd !=""){
+                $http.post("/user/login",$scope.loginData);
+            }else{
+                alert("账号密码必须填写");
+            }
 		}
 		$scope.reset = function () {
 			for (prop in $scope.loginData) {
@@ -174,6 +178,38 @@
 
 
 	}])
+
+    app.controller('collectionController', ['$scope', function ($scope) {
+        $scope.collection = [{
+            articleId:234,
+            createTime:new Date(),
+            title:"如何学习js"
+        },{
+            articleId:456,
+            createTime:new Date(),
+            title:"node 即学即会"
+        },{
+            articleId:789,
+            createTime:new Date(),
+            title:"angular 和 avalon 哪个更好？"
+        }];
+
+        $scope.cancelCollection = function (index,Id){
+            /* here delete index by ID*/
+            if(confirm("确定要取消关注?")){
+                $scope.collection.splice(index,1);
+            }
+            
+        }
+    }])
+
+    app.controller('tagsController', ['$scope', function ($scope) {
+        
+    }])
+
+    app.controller('aboutController', ['$scope', function ($scope) {
+        
+    }])
 
 	app.config(function ($stateProvider, $urlRouterProvider) {
  

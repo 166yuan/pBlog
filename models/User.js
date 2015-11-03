@@ -30,12 +30,12 @@ UserSchema
   .set(function(password) {
     this._password = password;
     this.sha1 = this.makeSalt();
-    this.hashed_password = this.encryptPassword(password);
+    this.hashed_password = this._encryptPassword(password);
   })
   .get(function() { return this._password });
 
 UserSchema.methods = {
-  encryptPassword: function (password) {
+  _encryptPassword: function (password) {
     if (!password) return '';
     try {
       return crypto
@@ -46,10 +46,46 @@ UserSchema.methods = {
       return '';
     }
   },
+  encrptPasswd: function (password,sha1) {
+      if (!password) return '';
+    try {
+      return crypto
+        .createHmac('sha1', sha1)
+        .update(password)
+        .digest('hex');
+    } catch (err) {
+      return '';
+    }
+  },
   makeSalt: function () {
     return Math.round((new Date().valueOf() * Math.random())) + '';
   }
 }
+
+/*useful method */
+
+UserSchema.statics.login = function(account, password, callback) {
+  var User = mongoose.model('User');
+  var that = this;
+  this.findOne({ account: account }, function (err, user) {
+
+    if (err) callback(err, null);
+    if(user) {
+      if (user.hashed_password == that.schema.methods.encrptPasswd(password, user.sha1)) {
+        callback(err, user);
+      } else {
+        callback(null, null);
+      }
+
+    } else {
+      callback(null, null);
+    }
+  });
+
+};
+
 //create Model
 
 mongoose.model('User',UserSchema);
+
+module.exports = UserSchema = new Schema({});

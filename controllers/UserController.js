@@ -10,7 +10,17 @@ var render = {};
 
 
 router.post('/user/login',koaBody,function *(next){
-   	
+
+       User.login(this.request.body.account,this.request.body.passwd,function(err,user){
+            if (user) {
+                console.log('success');
+                yield this.render({
+                    success:"ok"
+                });
+            }else{
+                console.log('fail');
+            }
+       });
 });
 
 router.post('/user/register',koaBody,
