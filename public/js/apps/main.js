@@ -41,7 +41,10 @@
 		}
 		$scope.login = function (){
 			if($scope.loginData.account !="" && $scope.loginData.passwd !=""){
-                $http.post("/user/login",$scope.loginData);
+                $http.post("/user/login",$scope.loginData)
+                .then(function (data){
+                    console.log(data);
+                })
             }else{
                 alert("账号密码必须填写");
             }
@@ -60,7 +63,10 @@
 		}
 		$scope.register = function() {
 			if($scope.registerData.passwd === $scope.registerData.repasswd){
-				$http.post("/user/register",$scope.registerData);
+				$http.post("/user/register",$scope.registerData).
+                then(function (data){
+                    console.log(data);
+                })
 			}else{
 				alert("两次输入密码必须一致");
 			}

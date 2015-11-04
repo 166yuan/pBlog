@@ -10,13 +10,11 @@ var render = {};
 
 
 router.post('/user/login',koaBody,function *(next){
-
+       var that = this;
+      
        User.login(this.request.body.account,this.request.body.passwd,function(err,user){
             if (user) {
-                console.log('success');
-                yield this.render({
-                    success:"ok"
-                });
+              that.body = "sss";
             }else{
                 console.log('fail');
             }
@@ -25,22 +23,22 @@ router.post('/user/login',koaBody,function *(next){
 
 router.post('/user/register',koaBody,
 	function * (next) {
+    var _this = this;
 		var userData = {
 			account:this.request.body.account,
 			password:this.request.body.passwd
 		}
-		console.log(this.request.body);
 		  var user = new User(userData);
-  user.save(function (err) {
-    if (err) {
-    	console.log(err);  
-    }});
+     var result = yield user.add().exec();
+      this.body = "ok"; 
 });
 
 module.exports = function(app,render){
-	app
+	
+  render = render;
+  app
     .use(router.routes())
     .use(router.allowedMethods());
      
-     render = render;
+     
 }
