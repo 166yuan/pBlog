@@ -100,6 +100,10 @@ UserSchema.statics.login = function(account, password, callback) {
 
 };
 
+UserSchema.statics.test = function(account) {
+  console.log(account);
+  return this.find({account}).exec();
+}
 
 //create Model
 

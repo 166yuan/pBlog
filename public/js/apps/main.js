@@ -41,7 +41,7 @@
 		}
 		$scope.login = function (){
 			if($scope.loginData.account !="" && $scope.loginData.passwd !=""){
-                $http.post("/user/login",$scope.loginData)
+                $http.post("/user/test",$scope.loginData)
                 .then(function (data){
                     console.log(data);
                 })
