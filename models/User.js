@@ -78,31 +78,23 @@ UserSchema.methods = {
 
 /*useful method */
 
-UserSchema.statics.login = function(account, password, callback) {
-  var User = mongoose.model('User');
-  var that = this,
-  p = new Promise();
-
-  this.findOne({ account: account }, function (err, user) {
-
-    if (err) callback(err, null);
-    if(user) {
-      if (user.hashed_password == that.schema.methods.encrptPasswd(password, user.sha1)) {
-        callback(err, user);
-      } else {
-        callback(null, null);
-      }
-
-    } else {
-      callback(null, null);
+UserSchema.statics = { 
+  findByAccount :function (account){
+      return this.find({"account":account}).exec();
+  },
+  login: function(account,password){
+     var _this = this,
+    p = new Promise();
+  _this.findOne({account:account},function( err, data){
+    if(err){
+      p.reject(err,-1);
+    }else{
+      p.resolve( null , _this.schema.methods.encrptPasswd(password, data.sha1));
     }
+
   });
-
-};
-
-UserSchema.statics.test = function(account) {
-  console.log(account);
-  return this.find({account}).exec();
+  return p;
+  }  
 }
 
 //create Model

@@ -41,9 +41,9 @@
 		}
 		$scope.login = function (){
 			if($scope.loginData.account !="" && $scope.loginData.passwd !=""){
-                $http.post("/user/test",$scope.loginData)
+                $http.post("/user/login",$scope.loginData)
                 .then(function (data){
-                    console.log(data);
+                    alert(data.info);
                 })
             }else{
                 alert("账号密码必须填写");
@@ -65,7 +65,8 @@
 			if($scope.registerData.passwd === $scope.registerData.repasswd){
 				$http.post("/user/register",$scope.registerData).
                 then(function (data){
-                    console.log(data);
+                	console.log(data);
+                    alert(data.data.info);
                 })
 			}else{
 				alert("两次输入密码必须一致");
@@ -92,7 +93,7 @@
 		$scope.init();
 	}]);
 
-	app.controller('publishController', ['$scope', function ($scope) {
+	app.controller('publishController', ['$scope', '$http',function ($scope,$http) {
 		var ue = UE.getEditor('ueditor', {
                 autoHeightEnabled: true,
                 autoFloatEnabled: true
@@ -114,7 +115,11 @@
 			temp:"",
 			tags:[]
 		}
-
+		$scope.init = function( ){
+			$http.get("/category/all").success(function(data){
+				$scope.category = data;
+			});
+		}
 		$scope.addTags= function(){
 			if ($scope.publishData.temp !== "") {
 				$scope.publishData.tags.push($scope.publishData.temp);
@@ -129,7 +134,13 @@
 		}
 		$scope.publish = function(){
 			$scope.publishData.content = ue.getContent();
-			console.log($scope.publishData);
+			$http.post("/blog/publish",$scope.publishData).
+			success(function(data){
+				console.log(data);
+			}).
+			error(function(err){
+				console.log(err);
+			})
 		}
 		$scope.reset = function(){
 			for (prop in $scope.publishData) {
@@ -139,6 +150,7 @@
 				ue.setContent("请输入内容");
 			}
 		}
+		$scope.init();
 	}])
 
 	app.controller('articleController', ['$scope', function ($scope) {
@@ -170,18 +182,19 @@
 		$scope.init();
 	}])
 
-	app.controller('categoryController', ['$scope', function ($scope) {
-		$scope.categorys = [{
-			id:12,
-			name: "学习"
-		},{
-			id:34,
-			name: "生活"
-		},{
-			id:56,
-			name: "娱乐"
-		}];
-
+	app.controller('categoryController', ['$scope', "$http",function ($scope,$http) {
+		$scope.categorys = [];
+		
+		$http.get("/category/all").success(function(data){
+				console.log(data);
+				$scope.categorys = data;
+		});
+		
+		$scope.addTest = function (){
+			$http.get("/category/test").success(function ( data){
+				console.log(data);
+			});
+		}
 
 	}])
 

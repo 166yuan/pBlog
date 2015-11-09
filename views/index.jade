@@ -56,10 +56,10 @@ body(ng-controller="IndexController")
 					input(type='text',name='account',ng-model='registerData.account',placeholder='输入账号',required)
 				div.form-control
 					label 密码
-					input(type='text',name='password',ng-model='registerData.passwd',placeholder='输入密码',required)
+					input(type='password',name='password',ng-model='registerData.passwd',placeholder='输入密码',required)
 				div.form-control
 					label 确认密码
-					input(type='text',placeholder='重复密码',ng-model="registerData.repasswd",required)
+					input(type='password',placeholder='重复密码',ng-model="registerData.repasswd",required)
 				div.form-control
 					button.btn.btn-blue(ng-click="register()") 注册
 					button.btn.btn-default(ng-click="reset()") 重置								 	
