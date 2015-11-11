@@ -98,16 +98,7 @@
                 autoHeightEnabled: true,
                 autoFloatEnabled: true
             });
-		$scope.category = [{
-			id:1,
-			name:"我的日记"
-		},{
-			id:2,
-			name:"专业技术"
-		},{
-			id:3,
-			name:"学业教育"
-		}];
+		$scope.category = [];
 		$scope.publishData = {
 			title:"",
 			content:"",
@@ -117,6 +108,7 @@
 		}
 		$scope.init = function( ){
 			$http.get("/category/all").success(function(data){
+				console.log(data);
 				$scope.category = data;
 			});
 		}
