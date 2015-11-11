@@ -18,6 +18,7 @@ router.post("/blog/publish",koaBody,function* (next){
 			tag = new Tag({
 				tname:articleData.tags[i]
 			});
+			tag.save();
 		}
 	}
 	var result = yield blog.add();

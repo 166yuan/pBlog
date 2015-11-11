@@ -7,7 +7,7 @@
 	</div>
 	<div class="form-control">
 		<label for="category">选择分类</label> 
-		<select name="category"  ng-options="item.id for item in publishData.category" required>
+		<select ng-model="publishData.category" required>
 			<option ng-repeat="ca in category" value="{{ca.id}}">{{ca.ctitle}}</option>
 		</select>
 		<a >创建分类</a>

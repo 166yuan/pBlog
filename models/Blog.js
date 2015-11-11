@@ -12,6 +12,7 @@ var BlogSchema = new Schema({
   	publisherId: Schema.Types.ObjectId,
     title: String,
     cantent: String,
+    category:String,
     tags: [String],
     viewNumber: { type:Number,default:0 },
     isHead: { type:Boolean,default:false },

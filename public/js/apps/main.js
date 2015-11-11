@@ -108,8 +108,9 @@
 		}
 		$scope.init = function( ){
 			$http.get("/category/all").success(function(data){
-				console.log(data);
+				
 				$scope.category = data;
+                console.log($scope.category );
 			});
 		}
 		$scope.addTags= function(){
