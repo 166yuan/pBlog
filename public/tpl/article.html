@@ -1,7 +1,7 @@
 <div ng-controller="articleController" class="article-area">
 	<h3>我的博客</h3>
 	<div class="blog" ng-repeat="item in articles">
-		<span class="datatime">{{item.createTime}}</span>
+		<span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span>
 		<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>
 	</div>
 	<ul class="pagination" ng-show="pagination.totalPage>1">

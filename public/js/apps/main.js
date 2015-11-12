@@ -93,7 +93,8 @@
 		$scope.init();
 	}]);
 
-	app.controller('publishController', ['$scope', '$http',function ($scope,$http) {
+	app.controller('publishController', ['$scope', '$http','$location',function ($scope,$http,$location) {
+        console.log("execute");
 		var ue = UE.getEditor('ueditor', {
                 autoHeightEnabled: true,
                 autoFloatEnabled: true
@@ -129,7 +130,12 @@
 			$scope.publishData.content = ue.getContent();
 			$http.post("/blog/publish",$scope.publishData).
 			success(function(data){
-				console.log(data);
+				if(data.result==1){
+                    alert("保存成功");
+                    window.location.href ="#/article";
+                }else{
+                    alert("保存失败");
+                }
 			}).
 			error(function(err){
 				console.log(err);
@@ -218,6 +224,10 @@
         
     }])
 
+    app.controller('detailController', ['$scope','$stateParams', function ($scope,$stateParams) {
+        var aid = $stateParams.articleId;
+        console.log(aid);
+    }])
     app.controller('aboutController', ['$scope', function ($scope) {
         
     }])
