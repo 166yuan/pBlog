@@ -110,7 +110,7 @@
 			$http.get("/category/all").success(function(data){
 				
 				$scope.category = data;
-                console.log($scope.category );
+                $scope.publishData.category = data[0].id;
 			});
 		}
 		$scope.addTags= function(){
@@ -146,7 +146,7 @@
 		$scope.init();
 	}])
 
-	app.controller('articleController', ['$scope', function ($scope) {
+	app.controller('articleController', ['$scope','$http', function ($scope,$http) {
 		$scope.articles= [];
     	$scope.pagination = {
     		currentPage:1,
@@ -156,15 +156,14 @@
     		pages:[1]
     	}
 		$scope.init = function(){
-			$scope.articles = [{
-				id:56,
-				"title":"博克测试啊",
-				date:"2015-04-05"
-			},{
-				id:78,
-				"title":"阿瓦隆硬件",
-				date:"2015-06-05"
-			}];
+			$http.get("blog/getAll").success(function(data){
+				if(data.result==1){
+					$scope.articles = data.data;
+				}else{
+					alert("failure");
+				}
+			});
+
 		}
 		$scope.load = function(){
 			console.log('load page');

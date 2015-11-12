@@ -11,7 +11,7 @@ var Schema = mongoose.Schema,
 var BlogSchema = new Schema({
   	publisherId: Schema.Types.ObjectId,
     title: String,
-    cantent: String,
+    content: String,
     category:String,
     tags: [String],
     viewNumber: { type:Number,default:0 },
@@ -36,6 +36,22 @@ BlogSchema.methods = {
   return p;
   }
 }
+
+BlogSchema.statics = {
+	findAll: function(){
+		var _this = this,
+		p = new Promise();
+		_this.find(function(err,data){
+			if(err){
+				p.reject(err,-1);
+			}else{
+				p.resolve(null,data);
+			}
+		});
+		return p;
+	}
+}
+
 /**
 */
 

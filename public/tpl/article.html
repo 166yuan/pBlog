@@ -1,8 +1,8 @@
 <div ng-controller="articleController" class="article-area">
 	<h3>我的博客</h3>
 	<div class="blog" ng-repeat="item in articles">
-		<span class="datatime">{{item.date}}</span>
-		<a ui-sref="adetail({articleId:item.id})" class="btitle">{{item.title}}</a>
+		<span class="datatime">{{item.createTime}}</span>
+		<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>
 	</div>
 	<ul class="pagination" ng-show="pagination.totalPage>1">
 		 <li ng-class="{true:'active'}[pagination.currentPage==1]"><a href="javascript:void(0)"

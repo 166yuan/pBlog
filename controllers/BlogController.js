@@ -22,8 +22,22 @@ router.post("/blog/publish",koaBody,function* (next){
 		}
 	}
 	var result = yield blog.add();
+	this.body = {
+		result:1,
+		info:"success save"
+	};
 })
 
+router.get("/blog/getAll",koaBody,function* (next){
+	var data = yield Blog.findAll();
+	if(data){
+		this.body = {
+			result:1,
+			data:data,
+			info:"success get"
+		}
+	}
+});
 
 module.exports = function(app,render){
 	app
