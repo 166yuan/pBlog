@@ -32,7 +32,10 @@ TagSchema.methods = {
 TagSchema.statics = {
 	findByName:function(name){
 		return this.find({tname:name}).exec();
-	}
+	},
+  getAll: function( ){
+    return this.find().exec();
+  }
 }
 /**
 */

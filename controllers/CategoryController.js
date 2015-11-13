@@ -26,6 +26,21 @@ router.get("/category/all",function*(next){
 	 this.body = body; 
 });
 
+router.post("/category/add",koaBody,function*(next){
+	var body = [];
+	var result = yield Category.findByName(this.request.body.ctitle);
+	if(result){
+		var cate = new Category({ctitle:this.request.body.ctitle});
+		var a = yield cate.add();
+	}
+	 this.body = "ok"; 
+});
+
+router.post("",koaBody,function*(next){
+	var body = [];
+});
+
+
 module.exports = function(app,render){
 	app
     .use(router.routes())

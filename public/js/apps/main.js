@@ -220,13 +220,25 @@
         }
     }])
 
-    app.controller('tagsController', ['$scope', function ($scope) {
-        
+    app.controller('tagsController', ['$scope','$http', function ($scope,$http) {
+        $scope.tags=[];
+        $http.get("/tag/getAll").success(function(data){
+        	console.log(data);
+        	$scope.tags = data;
+        });
     }])
 
-    app.controller('detailController', ['$scope','$stateParams', function ($scope,$stateParams) {
+    app.controller('detailController', ['$scope','$stateParams', "$http","$sce",function ($scope,$stateParams,$http,$sce) {
+        $scope.article = {};
         var aid = $stateParams.articleId;
-        console.log(aid);
+        $http.post("/blog/getById",{aid:aid}).success(function(data){
+        	if(data.result===1){
+        		$scope.article = data.data;
+        		$scope.article.content = $sce.trustAsHtml(data.data.content);
+        	}else{
+        		alert("fail to get blog");
+        	}
+        });
     }])
     app.controller('aboutController', ['$scope', function ($scope) {
         

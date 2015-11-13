@@ -4,10 +4,13 @@
 
 var mongoose = require('mongoose');
 var router = require('koa-router')();
+var koaBody = require("koa-body")();
+var Tag = mongoose.model('Tag');
 var render = {};
 
-router.get('/tag',function *(next){
-  console.log('tag');
+router.get('/tag/getAll',koaBody,function *(next){
+  var tags = yield Tag.getAll();
+  this.body = tags;
 });
 
 

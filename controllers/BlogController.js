@@ -50,6 +50,18 @@ router.get("/blog/getAll",koaBody,function* (next){
 
 router.post("/blog/getById",koaBody,function* (next){
 	var data = yield Blog.findById(this.request.body.aid);
+	if(data){
+		this.body = {
+			result:1,
+			data:data,
+			info:"success get"
+		}
+	}else{
+		this.body = {
+			result:-1,
+			info:"fail"
+		}
+	}
 });
 
 module.exports = function(app,render){
