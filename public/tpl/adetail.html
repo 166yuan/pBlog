@@ -1,4 +1,4 @@
-<div ng-controller="detailController">
+<div ng-controller="detailController" class="articleWrap">
 	<h3>{{article.title}}<span class="datatime">{{article.createTime|date:'yyyy-MM-dd hh:MM'}}</span></h3>
 	<div>
 		<span>标签：</span> <a href="" ng-repeat="item in article.tags">{{item}}</a>
@@ -8,5 +8,8 @@
 	</article>
 	<div>
 		评论区
+		<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<!-- UY END -->
 	</div>	
 </div>

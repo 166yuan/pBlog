@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var router = require('koa-router')();
 var koaBody = require("koa-body")();
 var Category = mongoose.model("Category");
+var Blog = mongoose.model("Blog");
 
 router.get('/category/test',function *(next){
     var cate1 =  new Category({ctitle:"默认分类"});
@@ -36,7 +37,7 @@ router.post("/category/add",koaBody,function*(next){
 	 this.body = "ok"; 
 });
 
-router.post("",koaBody,function*(next){
+router.post("/category/getArticleByCate",koaBody,function*(next){
 	var body = [];
 });
 
