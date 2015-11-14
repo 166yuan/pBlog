@@ -2,14 +2,15 @@
 	<h3>{{article.title}}<span class="datatime">{{article.createTime|date:'yyyy-MM-dd hh:MM'}}</span></h3>
 	<div>
 		<span>标签：</span> <a href="" ng-repeat="item in article.tags">{{item}}</a>
+		<a href="javascript:void(0)" ng-click="addCollection(article._id)">收藏</a>
 	</div>
 	<article data-ng-bind-html="article.content">
 		
 	</article>
 	<div>
 		评论区
-		<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<!-- UY END -->
+		
+<div duoshuo="id"></div>
+
 	</div>	
 </div>

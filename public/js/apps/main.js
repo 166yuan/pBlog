@@ -1,5 +1,8 @@
 (function () {
-	var app = angular.module('app', ['ui.router']);
+	window.duoshuoQuery = {
+    short_name: "siyuanda"
+};
+	var app = angular.module('app', ['ui.router','ngDuoshuo']);
 	app.controller('IndexController', ['$scope','$http', function ($scope,$http) {
 		$scope.showModal = $scope.showLogin = $scope.showRegister = false;
 		$scope.loginData = {
@@ -182,9 +185,11 @@
 
 	app.controller('categoryController', ['$scope', "$http",function ($scope,$http) {
 		$scope.categorys = [];
-		
+		$scope.blogs = [];
+		$scope.ctitle = "";
+		$scope.showInput = false;
+		$scope.newCollection = "";
 		$http.get("/category/all").success(function(data){
-				console.log(data);
 				$scope.categorys = data;
 		});
 		
@@ -194,9 +199,28 @@
 			});
 		}
 
+		$scope.addNew = function ( ) {
+			console.log($scope.newCollection);
+			$http.post("/category/add",{ctitle:$scope.newCollection}).success(function(data){
+				if(data){
+					alert("添加成功");
+					window.location.reload();
+				}
+			});
+		}
+		$scope.triggerEditor = function(){
+			$scope.showInput = $scope.showInput==true?false:true;
+		}
+
+		$scope.findById = function(cid,name){
+			$http.post("/category/getArticleByCate",{cid:cid}).success(function(data){
+				$scope.blogs = data;
+				$scope.ctitle = name;
+			});
+		}
 	}])
 
-    app.controller('collectionController', ['$scope', function ($scope) {
+    app.controller('collectionController', ['$scope', '$http',function ($scope,$http) {
         $scope.collection = [{
             articleId:234,
             createTime:new Date(),
@@ -218,14 +242,27 @@
             }
             
         }
+
+        $http.get("/collection/getAll");
     }])
 
     app.controller('tagsController', ['$scope','$http', function ($scope,$http) {
         $scope.tags=[];
+        $scope.blogs = [];
         $http.get("/tag/getAll").success(function(data){
         	console.log(data);
         	$scope.tags = data;
         });
+        $scope.findByTag = function (name) {
+        	$http.post("/tag/getArticleBytag",{tname:name}).success(function(data){
+        		if(data.result==1){
+        			$scope.blogs = data.data;
+        		}else{
+        			alert("查询文章失败");
+        		}
+        		
+        	});
+        }
     }])
 
     app.controller('detailController', ['$scope','$stateParams', "$http","$sce",function ($scope,$stateParams,$http,$sce) {
@@ -239,6 +276,11 @@
         		alert("fail to get blog");
         	}
         });
+        $scope.addCollection = function(id){
+        	$http.post("/collection/add",{blogId:id}).success(function( data){
+        			console.log('success add');
+        	});
+        }
     }])
     app.controller('aboutController', ['$scope', function ($scope) {
         

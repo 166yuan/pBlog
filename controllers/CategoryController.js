@@ -28,6 +28,7 @@ router.get("/category/all",function*(next){
 });
 
 router.post("/category/add",koaBody,function*(next){
+	console.log(this.request.body);
 	var body = [];
 	var result = yield Category.findByName(this.request.body.ctitle);
 	if(result){
@@ -39,6 +40,9 @@ router.post("/category/add",koaBody,function*(next){
 
 router.post("/category/getArticleByCate",koaBody,function*(next){
 	var body = [];
+	var cid = this.request.body.cid;
+	var result = yield Blog.findByCategory(cid);
+	this.body = result;
 });
 
 

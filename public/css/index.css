@@ -206,6 +206,10 @@ margin: 0;
 	font-size: .5rem;
 }
 
+.taglist>li{
+	float: left;
+	margin-right: .5rem;
+}
 /*detail area*/
 .articleWrap{
   font-size: .5rem;

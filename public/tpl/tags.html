@@ -1,8 +1,9 @@
 <div ng-controller="tagsController" class="tag-area">
-	<ul ng-repeat="item in tags">
-		<li>{{item.tname}}</li>
+	<ul class="taglist clearfix">
+		<li ng-repeat="item in tags"><a href="javascript:void(0)" ng-click="findByTag(item.tname)">{{item.tname}}</a></li>
 	</ul>
 	<div>
 		这里是标签文章列表
+		<p ng-repeat="item in blogs"><a href="">{{item.title}}</a></p>
 	</div>
 </div>
