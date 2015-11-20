@@ -133,7 +133,8 @@ form{
   text-align: center;
   padding: .1rem .2rem;
   margin-left: .4rem;
-  border-radius: 5px; 
+  border-radius: 2px; 
+  border:none; 
 }
 
 .btn-default{
@@ -142,16 +143,29 @@ form{
 }
 .btn-blue{
   color: #fff;
-  background-color: #0793BD;
-  border:none;  
+  background-color: #2079E2; 
 }
-
+.btn-info{
+  background-color: #5bc0de;
+  color: #fff;
+}
+.btn-danger{
+ background-color: #d43f3a;
+  color: #fff;
+}
+.btn-warn{
+ background-color: #f0ad4e;
+  color: #fff;
+}
+.btn-success{
+   background-color: #5cb85c;
+  color: #fff;
+}
 .tooltip{
    position: fixed;
    bottom: 1.2rem;
    height: 1rem;
    width: 1rem;
-   border:1px solid #000;
 }
 .tooltip>a{
   display: block;
@@ -160,6 +174,30 @@ form{
   text-align: center;
   line-height: 1rem;
 }
-.tootip>a>i{
-  font-size: 2rem;
+.long-input{
+  width: 50%;
+}
+article{
+  text-indent: 50px; 
+}
+.component{
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.2);
+  top: 0;
+  left:0;
+  position: absolute;
+  padding-top: 3rem;
+  font-size: .5rem;
+  z-index: 999;
+}
+.alert-box{
+  height: 3rem;
+  width: 8rem;
+  border:6px solid #00D3FF;
+  border-radius: 4px;
+  margin: 0 auto;
+  background: #fff;
+  text-align: center;
+  padding-top: 1rem;
 }

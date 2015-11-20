@@ -75,7 +75,11 @@
 				alert("两次输入密码必须一致");
 			}
 			
-		} 
+		}
+
+        $scope.$on('showAlert', function(e, info) {
+            $scope.$broadcast("com-alert",info);
+        }); 
 	}]);
 
 	app.controller('MainController', ['$scope', function ($scope) {
@@ -152,6 +156,9 @@
 				ue.setContent("请输入内容");
 			}
 		}
+        $scope.newCate = function(){
+            $scope.$emit("showAlert","保存成功");
+        }
 		$scope.init();
 	}])
 
@@ -286,6 +293,29 @@
         
     }])
 
+    app.controller('compoentCtrl', ['$scope', function ($scope) {
+        $scope.compoentBox = false;
+        $scope.alertBox = false;
+        $scope.inputBox = false;
+        $scope.info = "";
+        $scope.showInput = function ( ) {
+            
+        }
+        $scope.confirm = function () {
+            $scope.alertBox = false;
+            $scope.compoentBox = false;
+        }
+        $scope.cancel = function () {
+            $scope.compoentBox = false;
+        }
+        /*事件监听区域*/
+        $scope.$on("com-alert",function(e,info){
+            $scope.compoentBox = true;
+            $scope.info = info;
+            $scope.alertBox = true;
+        });
+
+    }])
 	app.config(function ($stateProvider, $urlRouterProvider) {
  
      $urlRouterProvider.when("", "/home");

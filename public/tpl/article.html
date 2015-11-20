@@ -1,5 +1,5 @@
 <div ng-controller="articleController" class="article-area">
-	<h3>我的博客</h3>
+	<h4>博文列表</h4>
 	<div class="blog" ng-repeat="item in articles">
 		<span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span>
 		<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>

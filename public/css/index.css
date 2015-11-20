@@ -8,6 +8,7 @@ body{
 	padding-bottom: .8rem;
 	background-color: #f9f9f9;
 	position: relative;
+	z-index: 90;
 }
 .navbar{
 	margin-top: .3rem;
@@ -56,6 +57,7 @@ body{
 .datatime{
 	color: #ddd;
 	font-size: smaller;
+	margin-left: .2rem;
 }
 .btitle{
 	margin-left: .3rem;
@@ -200,6 +202,8 @@ margin: 0;
 	font-size: .5rem;
 }
 
+
+
 /*here is tag list*/
 
 .tag-area{
@@ -213,4 +217,10 @@ margin: 0;
 /*detail area*/
 .articleWrap{
   font-size: .5rem;
+}
+.articleWrap h3,.articleWrap h4{
+	text-align: center;
+}
+.tagsList{
+	 font-size: .35rem;
 }

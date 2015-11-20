@@ -1,4 +1,5 @@
 <div ng-controller="categoryController" class="category-area">
+<h4>分类目录</h4>
 	<ul class="cateList">
 		<li ng-repeat="category in categorys"><a ng-click="findById(category.id,category.ctitle)">{{category.ctitle}}</a></li>
 	</ul>
@@ -7,7 +8,6 @@
 		<label for="cate">输入新的分类名称</label> <input type="text" ng-model="newCollection" name="cate" placeholder="新的分类名" /><button ng-click="addNew()">保存</button>
 	</div>
 	<div>
-		这里是分类文章列表
 		<p ng-repeat="item in blogs"> <span></span> [{{ctitle}}]<a ui-sref="adetail({articleId:item._id})">{{item.title}}</a> </p>
 	</div>
 	<!-- <button ng-click="addTest()">add Test</button> -->

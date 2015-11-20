@@ -25,10 +25,10 @@ body(ng-controller="IndexController")
 		div.main(ui-view)		 		
 	div.tooltip
 		a(ui-sref="publish")
-			i.icon.iconfont &#xe606		
+			i.icon.iconfont(style='font-size:1.5rem') &#xe606		
 	footer
 		p Copyright © 2015 - 166yuan - Powered by Jekyll. Github
-	div.modal(ng-if='showModal')
+	div.modal(ng-if='showModal',ng-cloak)
 		div.login-box#login(ng-if='showLogin')
 			div.nav-info
 				span 登录系统
@@ -62,7 +62,8 @@ body(ng-controller="IndexController")
 					input(type='password',placeholder='重复密码',ng-model="registerData.repasswd",required)
 				div.form-control
 					button.btn.btn-blue(ng-click="register()") 注册
-					button.btn.btn-default(ng-click="reset()") 重置								 	
+					button.btn.btn-default(ng-click="reset()") 重置
+	div.component(ng-controller="compoentCtrl",ng-show='compoentBox',ng-include="'tpl/component.html'",ng-cloak)									 	
 	script(src='js/libs/angular.min.js')
 	script(src="js/libs/angular-ui-router.js")
 	script(src="js/libs/angular-duoshuo.js")

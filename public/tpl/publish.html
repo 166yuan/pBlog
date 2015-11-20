@@ -1,5 +1,5 @@
 <div ng-controller="publishController" class="publish">
-	<div class="form-control"><label for="title">请输入标题</label><input type="text" ng-model="publishData.title" placeholder="50字以内" name="title"></div>
+	<div class="form-control"><label for="title">请输入标题</label><input type="text" ng-model="publishData.title" placeholder="50字以内" name="title" class="long-input" /></div>
 	<div class="editWraper">
 		<textarea id="ueditor">
 		输入您的内容
@@ -10,17 +10,17 @@
 		<select ng-model="publishData.category" required>
 			<option ng-repeat="ca in category" value="{{ca.id}}">{{ca.ctitle}}</option>
 		</select>
-		<a >创建分类</a>
+		<button ng-click="newCate()" class="btn btn-blue">新建分类</button>
 	</div>
 	<div class="form-control">
 		<label for="">输入标签</label>
 		<p><span class="tags" ng-repeat="tag in publishData.tags">{{tag}}<i class="icon iconfont" ng-click="removeTags($index)">&#xe605</i></span></p>
 		<div>
-			<input type="text" ng-model="publishData.temp" placeholder="最多5个标签"> <button ng-click="addTags()">添加</button>
+			<input type="text" ng-model="publishData.temp" placeholder="最多5个标签"> <button ng-click="addTags()" class="btn btn-info">添加</button>
 		</div>
 	</div>
-	<div>
-		<button class="publish-btn" ng-click="publish()">发布</button>
-		<button class="reset" ng-click="reset()">全部重置</button>
+	<div style="padding-left:.6rem;padding-top:.4rem">
+		<button class="btn btn-success" ng-click="publish()">发布</button>
+		<button class="btn btn-warn" ng-click="reset()">全部重置</button>
 	</div>
 </div>
