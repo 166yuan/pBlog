@@ -64,6 +64,26 @@ router.post("/blog/getById",koaBody,function* (next){
 	}
 });
 
+router.post("/blog/deleteById",koaBody,function* (next){
+	var data = yield Blog.findById(this.request.body.aid);
+	if(data){
+		data.isDelete = true;
+		data.save();
+		/*var result = yield Blog.updateInfo( data._id,{ $set: { isDelete: false }});
+		console.log(result);*/
+		this.body = {
+			result:1,
+			data:data,
+			info:"success get"
+		}
+	}else{
+		this.body = {
+			result:-1,
+			info:"fail"
+		}
+	}
+});
+
 module.exports = function(app,render){
 	app
     .use(router.routes())

@@ -32,8 +32,7 @@ body{
 	margin: 0 auto;
 }
 .navbar-menu{
-	width: 14rem;
-	height: 1.4rem;
+	width: 11rem;
 }
 
 .navbar-menu>li{
@@ -185,17 +184,28 @@ text-align: center;
 margin: 0;
 }
 
+.article-edit{
+	float: right;
+	font-size: .4rem;
+	margin-top: -0.8rem;
+}
 /*here is category css */
 .category-area{
-	font-size: .5rem;
+	font-size: .4rem;
 }
 
 .cateList li{
 	float: left;
 	margin-right: .6rem;
-
+	background-color: rgba(238,238,238,.38);
+    padding: .1rem .2rem;
+    box-shadow: 0 1px 5px rgba(0,0,0,.15),0 1px 5px 1px rgba(0,0,0,.15);
+    transition: transform .15s ease-in;
 }
-
+.cateList li>a{ color: #268bd2; }
+.cateList li:hover{
+	transform: scale(1.2);
+}
 /*here is collection area*/
 
 .collection-area{

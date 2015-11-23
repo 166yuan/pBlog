@@ -1,8 +1,11 @@
 <div ng-controller="articleController" class="article-area">
 	<h4>博文列表</h4>
+	<span class="article-edit"><a href="javascript:void(0)" ng-click="triggerEditor()">编辑</a></span>
 	<div class="blog" ng-repeat="item in articles">
 		<span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span>
 		<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>
+		<a ng-show="showEdit" href="javascript:void(0)" ng-click="edit($index,item._id)">[编辑]</a>
+		<a href="javascript:void(0)" ng-show="showEdit" ng-click="deleteById($index,item._id)">[删除]</a>
 	</div>
 	<ul class="pagination" ng-show="pagination.totalPage>1">
 		 <li ng-class="{true:'active'}[pagination.currentPage==1]"><a href="javascript:void(0)"

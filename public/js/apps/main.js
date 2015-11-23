@@ -80,6 +80,13 @@
         $scope.$on('showAlert', function(e, info) {
             $scope.$broadcast("com-alert",info);
         }); 
+        $scope.$on('showInput', function(e, info) {
+            $scope.$broadcast("com-input",info);
+        });
+        $scope.$on('successInput', function(e, info) {
+            $scope.$broadcast("inputFinish",info);
+        });  
+        
 	}]);
 
 	app.controller('MainController', ['$scope', function ($scope) {
@@ -101,11 +108,7 @@
 	}]);
 
 	app.controller('publishController', ['$scope', '$http','$location',function ($scope,$http,$location) {
-        console.log("execute");
-		var ue = UE.getEditor('ueditor', {
-                autoHeightEnabled: true,
-                autoFloatEnabled: true
-            });
+
 		$scope.category = [];
 		$scope.publishData = {
 			title:"",
@@ -114,12 +117,34 @@
 			temp:"",
 			tags:[]
 		}
+		var ue = UE.getEditor('ueditor', {
+                autoHeightEnabled: true,
+                autoFloatEnabled: true
+            });
 		$scope.init = function( ){
 			$http.get("/category/all").success(function(data){
 				
 				$scope.category = data;
                 $scope.publishData.category = data[0].id;
 			});
+
+			
+		}
+		$scope.refresh = function(){
+			var target = document.getElementById('ueditor');
+            if(target.tagName!=="DIV"){
+            	window.location.reload();
+            }else{
+            		var editorData = localStorage.getItem("editArticle");
+	            	if(editorData!="undefined"&&editorData!=null){
+					editorData = JSON.parse(editorData);
+					$scope.publishData.title = editorData.title;
+					$scope.publishData.category = editorData.category;
+					$scope.publishData.tags = editorData.tags;
+					console.log($scope.publishData.title);
+					/*ue.setContent(editorData.content);*/
+				}
+            }
 		}
 		$scope.addTags= function(){
 			if ($scope.publishData.temp !== "") {
@@ -157,13 +182,29 @@
 			}
 		}
         $scope.newCate = function(){
-            $scope.$emit("showAlert","保存成功");
+        	sessionStorage.setItem("showInput","publishController");
+            $scope.$emit("showInput","新分类");
         }
 		$scope.init();
+		window.setTimeout(function(){
+			$scope.refresh();
+		},1000);
+		$scope.on("inputFinish",function(e ,info){
+			if(sessionStorage.getItem("showInput")=="publishController"){
+				sessionStorage.removeItem("showInput")
+				$http.post("/category/add",{
+				ctitle: info
+			}).success(function(data){
+				console.log(data);
+			})
+			}
+			
+		})
 	}])
 
 	app.controller('articleController', ['$scope','$http', function ($scope,$http) {
 		$scope.articles= [];
+		$scope.showEdit = false;
     	$scope.pagination = {
     		currentPage:1,
     		totalPage:1,
@@ -186,7 +227,25 @@
 		}
 		$scope.loadPage = function(num ){
 			console.log('load num page');
+		}
+		$scope.triggerEditor = function () {
+			$scope.showEdit = ($scope.showEdit == true?false:true);
+		}
+		$scope.edit = function (index,aid) {
+			console.log($scope.articles[index]);
+			localStorage.setItem("editArticle",JSON.stringify($scope.articles[index]));
+			window.location.href ="#/publish";
 		} 
+		$scope.deleteById = function ( index,id ) {
+			$http.post("blog/deleteById",{aid:id}).success(function(data){
+				if(data.result==1){
+					$scope.articles.splice(index,1);
+					$scope.$emit("showAlert","删除成功");
+				}else{
+					$scope.$emit("showAlert","删除失败");
+				}
+			});
+		}
 		$scope.init();
 	}])
 
@@ -298,12 +357,14 @@
         $scope.alertBox = false;
         $scope.inputBox = false;
         $scope.info = "";
+        $scope.inputInfo = "";
         $scope.showInput = function ( ) {
             
         }
         $scope.confirm = function () {
             $scope.alertBox = false;
             $scope.compoentBox = false;
+            $scope.$emit("successInput",$scope.inputInfo);
         }
         $scope.cancel = function () {
             $scope.compoentBox = false;
@@ -315,6 +376,11 @@
             $scope.alertBox = true;
         });
 
+         $scope.$on("com-input",function(e,info){
+            $scope.compoentBox = true;
+            $scope.info = info;
+            $scope.inputBox = true;
+        });
     }])
 	app.config(function ($stateProvider, $urlRouterProvider) {
  
