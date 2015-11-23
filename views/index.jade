@@ -17,11 +17,18 @@ body(ng-controller="IndexController")
 					li(ng-repeat='item in navMenu')
 						a(ui-sref="{{item.src}}") {{item.name}} 					
 			nav.nav-top
-				ul
+				ul(ng-show="!isLogin",ng-cloak)
 					li
 						a.login-btn(href="javascript:void(0)",ng-click="triggerModal(1)") 登录
 					li 
 						a.register-btn(href='javascript:void(0)',ng-click="triggerModal(2)") 注册
+				ul(ng-show="isLogin",ng-cloak)
+					li
+						欢迎您，saxi
+					li
+						个人中心
+					li
+						退出				
 		div.main(ui-view)		 		
 	div.tooltip
 		a(ui-sref="publish")
