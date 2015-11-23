@@ -4,7 +4,7 @@
 };
 	var app = angular.module('app', ['ui.router','ngDuoshuo']);
 	app.controller('IndexController', ['$scope','$http', function ($scope,$http) {
-		$scope.showModal = $scope.showLogin = $scope.showRegister = false;
+		$scope.showModal = $scope.showLogin = $scope.showRegister = $scope.isLogin = false;
 		$scope.loginData = {
 			account: "",
 			passwd : ""

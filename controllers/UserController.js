@@ -12,9 +12,20 @@ var render = {};
 
 router.post('/user/login',koaBody,function *(next){
       var body = {};
-       var user = yield User.login(this.request.body.account,this.request.body.passwd);
-       console.log(user);
-       this.body = body;
+       var data = yield User.login(this.request.body.account,this.request.body.passwd);
+       if(data.result){
+          this.body = {
+            result:1,
+            info:"success login",
+            data:data.data
+          }
+       }else{
+          this.body = {
+            result:-1,
+            info:"fail to login"
+          }
+       }
+       
 });
 
 
