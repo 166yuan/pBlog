@@ -171,10 +171,10 @@
 			$http.post("/blog/publish",$scope.publishData).
 			success(function(data){
 				if(data.result==1){
-                    alert("保存成功");
+                    $scope.$emit("showAlert","保存成功");
                     window.location.href ="#/article";
                 }else{
-                    alert("保存失败");
+                    $scope.$emit("showAlert","保存失败");
                 }
 			}).
 			error(function(err){

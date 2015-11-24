@@ -234,3 +234,9 @@ margin: 0;
 .tagsList{
 	 font-size: .35rem;
 }
+
+/*center css*/
+.imgWraper>img{
+	border: 5px solid #ddd;
+	border-radius: 50%;
+}

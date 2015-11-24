@@ -4,13 +4,25 @@
 			<label for="nickname">昵称：</label> <input type="text" ng-model="userInfo.nickname" name="nickname">
 		</div>
 		<div class="form-control">
-			<label for="nickname">性别：</label>  <input type="radio" name="man" id="man" value="true" ng-selected="userInfo.sex"><label for="man">男</label>  <input type="radio" name="women" value="false" id="women" ng-selected="userInfo.sex"><label for="women">女</label>
+			<label for="nickname">性别：</label>  <input type="radio" name="man" id="man" value="true" ng-checked="userInfo.sex"><label for="man">男</label>  <input type="radio" name="women" value="false" id="women" ng-checked="!userInfo.sex"><label for="women">女</label>
 		</div>
 		<div class="form-control">
 			<label for="nickname">头像：</label>  
-			<div>
+			<div class="imgWraper">
 				<img src="{{userInfo.avatorUrl}}" alt="">
 			</div>
+		</div>
+		<div class="form-control">
+			<label for="nickname">创建时间：</label>  
+			{{userInfo.createTime | date:'yyyy-MM-dd hh:MM'}}
+		</div>
+		<div class="form-control">
+			<label for="email">邮箱：</label>  
+			<input type="text" name="email" ng-model="userInfo.email">
+		</div>
+		<div class="form-control">
+			<label for="email">qq：</label>  
+			<input type="text" name="qq" ng-model="userInfo.qq">
 		</div>
 	</form>
 </div>
