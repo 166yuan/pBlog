@@ -24,11 +24,11 @@ body(ng-controller="IndexController")
 						a.register-btn(href='javascript:void(0)',ng-click="triggerModal(2)") 注册
 				ul(ng-show="isLogin",ng-cloak)
 					li
-						欢迎您，saxi
+						欢迎您，{{username}}
 					li
-						个人中心
+						a(href="javascript:void(0)",ui-sref="center") 个人中心
 					li
-						退出				
+						a(href="javascript:void(0)") 退出				
 		div.main(ui-view)		 		
 	div.tooltip
 		a(ui-sref="publish")

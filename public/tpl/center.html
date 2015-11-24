@@ -1,0 +1,16 @@
+<div class="userCenter" ng-controller="centerController">
+	<form action="">
+		<div class="form-control">
+			<label for="nickname">昵称：</label> <input type="text" ng-model="userInfo.nickname" name="nickname">
+		</div>
+		<div class="form-control">
+			<label for="nickname">性别：</label>  <input type="radio" name="man" id="man" value="true" ng-selected="userInfo.sex"><label for="man">男</label>  <input type="radio" name="women" value="false" id="women" ng-selected="userInfo.sex"><label for="women">女</label>
+		</div>
+		<div class="form-control">
+			<label for="nickname">头像：</label>  
+			<div>
+				<img src="{{userInfo.avatorUrl}}" alt="">
+			</div>
+		</div>
+	</form>
+</div>

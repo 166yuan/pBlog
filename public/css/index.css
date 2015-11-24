@@ -18,7 +18,7 @@ body{
 }
 .nav-top{
 	font-size: .3rem;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	right: 3rem;
 }

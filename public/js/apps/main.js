@@ -5,6 +5,8 @@
 	var app = angular.module('app', ['ui.router','ngDuoshuo']);
 	app.controller('IndexController', ['$scope','$http', function ($scope,$http) {
 		$scope.showModal = $scope.showLogin = $scope.showRegister = $scope.isLogin = false;
+		$scope.username = "";
+		$scope.avatorUrl = "";
 		$scope.loginData = {
 			account: "",
 			passwd : ""
@@ -46,7 +48,13 @@
 			if($scope.loginData.account !="" && $scope.loginData.passwd !=""){
                 $http.post("/user/login",$scope.loginData)
                 .then(function (data){
-                    alert(data.info);
+                    console.log(data);
+                    var userInfo = data.data.data;
+                    sessionStorage.setItem("userInfo",JSON.stringify(userInfo));
+                    $scope.username = userInfo.nickname;
+                    $scope.avatorUrl = userInfo.avatorUrl;
+                    $scope.isLogin = true;
+                    $scope.showModal = $scope.showLogin = false;
                 })
             }else{
                 alert("账号密码必须填写");
@@ -68,11 +76,13 @@
 			if($scope.registerData.passwd === $scope.registerData.repasswd){
 				$http.post("/user/register",$scope.registerData).
                 then(function (data){
-                	console.log(data);
-                    alert(data.data.info);
+                	if(data.data.result){
+                		$scope.showModal = $scope.showRegister = false;
+                		$scope.$emit("showAlert","注册成功");
+                	}
                 })
 			}else{
-				alert("两次输入密码必须一致");
+				$scope.$emit("showAlert","两次输入密码必须一致");
 			}
 			
 		}
@@ -90,9 +100,7 @@
 	}]);
 
 	app.controller('MainController', ['$scope', function ($scope) {
-		$scope.username = "zoro";
 		$scope.articles= [];
-		$scope.userInfo = {};
 		$scope.init = function(){
 			$scope.articles = [{
 				id:56,
@@ -189,7 +197,7 @@
 		window.setTimeout(function(){
 			$scope.refresh();
 		},1000);
-		$scope.on("inputFinish",function(e ,info){
+		$scope.$on("inputFinish",function(e ,info){
 			if(sessionStorage.getItem("showInput")=="publishController"){
 				sessionStorage.removeItem("showInput")
 				$http.post("/category/add",{
@@ -306,9 +314,7 @@
             if(confirm("确定要取消关注?")){
                 $scope.collection.splice(index,1);
             }
-            
         }
-
         $http.get("/collection/getAll");
     }])
 
@@ -351,7 +357,13 @@
     app.controller('aboutController', ['$scope', function ($scope) {
         
     }])
-
+    app.controller('centerController', ['$scope', function ($scope) {
+    	$scope.userInfo = "";
+        var userInfo = sessionStorage.getItem("userInfo");
+        if (userInfo&&userInfo!="") {
+        	$scope.userInfo = JSON.parse(userInfo)
+        }
+    }])
     app.controller('compoentCtrl', ['$scope', function ($scope) {
         $scope.compoentBox = false;
         $scope.alertBox = false;
@@ -426,6 +438,11 @@
             url:"/about",
             templateUrl: "tpl/about.html",
             controller: "aboutController"
+        })
+        .state("center", {
+            url:"/center",
+            templateUrl: "tpl/center.html",
+            controller: "centerController"
         })
   
 });

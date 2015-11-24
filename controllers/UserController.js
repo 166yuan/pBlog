@@ -17,7 +17,7 @@ router.post('/user/login',koaBody,function *(next){
           this.body = {
             result:1,
             info:"success login",
-            data:data.data
+            data:data.user
           }
        }else{
           this.body = {
