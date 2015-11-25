@@ -236,7 +236,28 @@ margin: 0;
 }
 
 /*center css*/
+.imgWraper { position: relative;}
+.img-hover {
+	position: absolute;
+	height: 210px;
+	width: 210px;
+	top: 0;
+	left: 0;
+	border-radius: 50%;
+	cursor: pointer;
+}
 .imgWraper>img{
+	height: 200px;
+	width: 200px;
 	border: 5px solid #ddd;
 	border-radius: 50%;
+}
+.preview{
+	position: absolute;
+	height: 200px;
+	width: 200px;
+	border: 5px solid #ddd;
+	border-radius: 50%;
+	left: 0;
+	top: 0;
 }

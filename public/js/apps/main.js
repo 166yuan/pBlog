@@ -357,8 +357,10 @@
     app.controller('aboutController', ['$scope', function ($scope) {
         
     }])
+
     app.controller('centerController', ['$scope','$http', function ($scope,$http) {
     	$scope.userInfo = "";
+        $scope.previewing = false;
         var userInfo = sessionStorage.getItem("userInfo");
         if (userInfo&&userInfo!="") {
         	$scope.userInfo = JSON.parse(userInfo)
@@ -368,7 +370,27 @@
 
         	})
         }
+        $scope.triggerUpload = function ( ) {
+            var upload = document.getElementById('upload');
+            upload.click();
+            console.log(angular.element);
+        }
+        $scope.uploadStart = function ( ) { 
+            var submit = document.getElementById("submit"); 
+            submit.click();}
+        var ele = document.getElementById("upload");
+        angular.element(ele).bind("change",function(e){
+            var e = e || window.event;
+            e.target = e.target || e.srcElement;
+            var file = e.target.files[0];
+            var img = document.getElementById("preview");
+            var reader = new FileReader();
+              reader.onload = function(evt){img.src = evt.target.result;}
+              reader.readAsDataURL(file);
+             img.style.display = "block";
+        });
     }])
+
     app.controller('compoentCtrl', ['$scope', function ($scope) {
         $scope.compoentBox = false;
         $scope.alertBox = false;
