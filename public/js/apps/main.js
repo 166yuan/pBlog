@@ -357,11 +357,16 @@
     app.controller('aboutController', ['$scope', function ($scope) {
         
     }])
-    app.controller('centerController', ['$scope', function ($scope) {
+    app.controller('centerController', ['$scope','$http', function ($scope,$http) {
     	$scope.userInfo = "";
         var userInfo = sessionStorage.getItem("userInfo");
         if (userInfo&&userInfo!="") {
         	$scope.userInfo = JSON.parse(userInfo)
+        }
+        $scope.saveInfo = function ( ){
+        	$http.post("/user/update",{user:$scope.userInfo}).success(function(){
+
+        	})
         }
     }])
     app.controller('compoentCtrl', ['$scope', function ($scope) {

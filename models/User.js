@@ -80,7 +80,7 @@ UserSchema.methods = {
 
 UserSchema.statics = { 
   findByAccount :function (account){
-      return this.find({"account":account}).exec();
+      return this.findOne({"account":account}).exec();
   },
   login: function(account,password){
      var _this = this,
@@ -96,6 +96,13 @@ UserSchema.statics = {
 
   });
   return p;
+  },
+  updateInfo: function(data){
+      var _this = this,
+      p = new Promise();
+      UserSchema.findById(data._id,function(err,user){
+          console.log(user);
+      })
   }  
 }
 

@@ -1,5 +1,5 @@
 <div class="userCenter" ng-controller="centerController">
-	<form action="">
+	<form>
 		<div class="form-control">
 			<label for="nickname">昵称：</label> <input type="text" ng-model="userInfo.nickname" name="nickname">
 		</div>
@@ -23,6 +23,10 @@
 		<div class="form-control">
 			<label for="email">qq：</label>  
 			<input type="text" name="qq" ng-model="userInfo.qq">
+		</div>
+		<div class="form-control">
+			<button ng-click="saveInfo()">保存</button>
+			<input type="reset" value="重置" />
 		</div>
 	</form>
 </div>

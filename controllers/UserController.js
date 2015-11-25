@@ -38,7 +38,7 @@ router.post('/user/register',koaBody,
 			password:this.request.body.passwd
 		}
     var u1 = yield User.findByAccount(userData.account);
-     if(u1.length!=0){
+     if(u1){
         body = {
           result: -1,
           info : "account exist"
@@ -61,6 +61,35 @@ router.post('/user/register',koaBody,
 
       this.body = body; 
 });
+
+router.post("/user/update",koaBody,function * (next){
+  var data = this.request.body.user;
+  User.findById(data._id,function(err,person){
+     person.nickname = data.nickname;
+     person.qq = data.qq;
+     person.email = data.email;
+     person.save();
+  })
+ /* var user = yield User.findByAccount(data.account);
+  if(user){
+     user.nickname = data.nickname;
+     user.sex = data.sex;
+     user.avatorUrl = data.avatorUrl;
+     user.qq = data.qq;
+     user.email = user.email;
+     user.updateTime = Date.now;
+     user.save();
+     this.body = {
+        result:1,
+        info:"ok"
+     };
+  }else{
+    this.body = {
+      result:-1,
+      info:"fail"
+    }
+  }*/
+})
 
 module.exports = function(app,render){
   render = render;
