@@ -13,7 +13,7 @@
 				<img src="" id="preview" class="preview" style="display:none">
 				<div class="img-hover" ng-click="triggerUpload()"></div>
 			</div>
-			<button ng-click="uploadStart()">保存</button> <button>取消</button>
+			<button ng-click="uploadPic(picFile)">保存</button> <button>取消</button>
 		</div>
 		<div class="form-control">
 			<label for="nickname">创建时间：</label>  
@@ -27,10 +27,11 @@
 			<label for="email">qq：</label>  
 			<input type="text" name="qq" ng-model="userInfo.qq">
 		</div>
-		<button>保存</button> <input type="reset" value="重置">
+		<button ng-click="saveInfo()">保存</button> <input type="reset" value="重置">
 	</form>
-	<form method="post" action="/upload" enctype="multipart/form-data">
-		<input type="file" name="file" id="upload">
-		<input type="submit" id="submit">
+	<form name="form" style="display: none;">
+	  <<input type="file" ngf-select="" id="upload" ng-model="picFile" name="file" accept="image/*" required="">
+	  <button type="submit" ng-click="uploadPic(picFile)" id="submit">submit</button>
 	</form>
+
 </div>

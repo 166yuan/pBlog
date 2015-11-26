@@ -2,7 +2,7 @@
 	window.duoshuoQuery = {
     short_name: "siyuanda"
 };
-	var app = angular.module('app', ['ui.router','ngDuoshuo']);
+	var app = angular.module('app', ['ui.router','ngDuoshuo','ngFileUpload']);
 	app.controller('IndexController', ['$scope','$http', function ($scope,$http) {
 		$scope.showModal = $scope.showLogin = $scope.showRegister = $scope.isLogin = false;
 		$scope.username = "";
@@ -358,14 +358,17 @@
         
     }])
 
-    app.controller('centerController', ['$scope','$http', function ($scope,$http) {
+    app.controller('centerController', ['$scope','$http','Upload','$timeout',function ($scope,$http,Upload,$timeout) {
     	$scope.userInfo = "";
         $scope.previewing = false;
+        $scope.file = {};
+        $scope.files = [];
         var userInfo = sessionStorage.getItem("userInfo");
         if (userInfo&&userInfo!="") {
         	$scope.userInfo = JSON.parse(userInfo)
         }
         $scope.saveInfo = function ( ){
+        	 console.log($scope.userInfo);
         	$http.post("/user/update",{user:$scope.userInfo}).success(function(){
 
         	})
@@ -373,11 +376,34 @@
         $scope.triggerUpload = function ( ) {
             var upload = document.getElementById('upload');
             upload.click();
-            console.log(angular.element);
         }
         $scope.uploadStart = function ( ) { 
             var submit = document.getElementById("submit"); 
-            submit.click();}
+            submit.click();
+        }
+
+          $scope.uploadPic = function(file) {
+		    file.upload = Upload.upload({
+		      url: '/upload',
+		      data: {file: file}
+		    });
+
+		    file.upload.then(function (response) {
+		      $timeout(function () {
+		        file.result = response.data;
+		       var newUrl = response.data;
+		       $scope.userInfo.avatorUrl = newUrl;
+		      });
+		    }, function (response) {
+		      if (response.status > 0)
+		        $scope.errorMsg = response.status + ': ' + response.data;
+		    }, function (evt) {
+		      // Math.min is to fix IE which reports 200% sometimes
+		      file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+		    }); 
+     	}       
+
+  		/*pic preview*/
         var ele = document.getElementById("upload");
         angular.element(ele).bind("change",function(e){
             var e = e || window.event;
@@ -389,6 +415,7 @@
               reader.readAsDataURL(file);
              img.style.display = "block";
         });
+
     }])
 
     app.controller('compoentCtrl', ['$scope', function ($scope) {

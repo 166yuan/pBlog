@@ -2,7 +2,6 @@ var router = require('koa-router')();
 var path = require("path");
 var fs = require('fs'),
   parse = require('co-busboy');
-
 var render = {};
 
 router.get('/',function *(next){
@@ -11,19 +10,21 @@ router.get('/',function *(next){
 
 router.post('/upload',function*(next){
   var parts = parse(this);
-  console.log(parts);
   var part;
   console.log('post here');
   var fileNames = {};
-
+  var newPath = "";
   while (part = yield parts) {
-    var stream = fs.createWriteStream(path.join("public/img/") + Math.random()+part.filename);
+    var stream = fs.createWriteStream(path.join("public/img/") +part.filename);
 
     part.pipe(stream);
     console.log('uploading %s -> %s', part.filename, stream.path);
-
+    newPath = part.filename;
     fileNames[part.filename] = stream.path;
   }
+ console.log(fileNames);
+ this.body = "img/"+newPath;
+ /*this.redirect("/#/center");*/
 
 })
 

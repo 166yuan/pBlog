@@ -64,12 +64,17 @@ router.post('/user/register',koaBody,
 
 router.post("/user/update",koaBody,function * (next){
   var data = this.request.body.user;
+  console.log(data);
   User.findById(data._id,function(err,person){
      person.nickname = data.nickname;
      person.qq = data.qq;
      person.email = data.email;
+     person.avatorUrl = data.avatorUrl;
      person.save();
   })
+  this.body = {
+    result:1
+  }
  /* var user = yield User.findByAccount(data.account);
   if(user){
      user.nickname = data.nickname;
