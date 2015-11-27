@@ -27,7 +27,9 @@
 			<label for="email">qq：</label>  
 			<input type="text" name="qq" ng-model="userInfo.qq">
 		</div>
-		<button ng-click="saveInfo()">保存</button> <input type="reset" value="重置">
+		<div class="form-control">
+		<button class="btn btn-info" ng-click="saveInfo()">保存</button> <input class="btn btn-default" type="reset" value="重置">
+		</div>
 	</form>
 	<form name="form" style="display: none;">
 	  <<input type="file" ngf-select="" id="upload" ng-model="picFile" name="file" accept="image/*" required="">

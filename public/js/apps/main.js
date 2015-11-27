@@ -198,6 +198,7 @@
 			$scope.refresh();
 		},1000);
 		$scope.$on("inputFinish",function(e ,info){
+			console.log(info);
 			if(sessionStorage.getItem("showInput")=="publishController"){
 				sessionStorage.removeItem("showInput")
 				$http.post("/category/add",{
@@ -370,7 +371,10 @@
         $scope.saveInfo = function ( ){
         	 console.log($scope.userInfo);
         	$http.post("/user/update",{user:$scope.userInfo}).success(function(){
-
+        		$scope.$emit("showAlert","保存成功")
+        		sessionStorage.setItem("userInfo",JSON.stringify($scope.userInfo));
+        		$scope.username = $scope.userInfo.nickname;
+		$scope.avatorUrl = $scope.userInfo.avatorUrl;
         	})
         }
         $scope.triggerUpload = function ( ) {
@@ -423,14 +427,11 @@
         $scope.alertBox = false;
         $scope.inputBox = false;
         $scope.info = "";
-        $scope.inputInfo = "";
-        $scope.showInput = function ( ) {
-            
-        }
+        $scope.inputTest="";
         $scope.confirm = function () {
             $scope.alertBox = false;
             $scope.compoentBox = false;
-            $scope.$emit("successInput",$scope.inputInfo);
+            $scope.$emit("successInput",this.inputTest);
         }
         $scope.cancel = function () {
             $scope.compoentBox = false;
