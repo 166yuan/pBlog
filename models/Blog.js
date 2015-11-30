@@ -9,7 +9,7 @@ var Schema = mongoose.Schema,
 
 //define user scheme
 var BlogSchema = new Schema({
-  	publisherId: Schema.Types.ObjectId,
+  	userId:String,
     title: String,
     content: String,
     category:String,
@@ -50,6 +50,18 @@ BlogSchema.statics = {
 		});
 		return p;
 	},
+  findAllByUser: function(uid){
+    var _this = this,
+    p = new Promise();
+    _this.find({isDelete:false ,userId:uid},function(err,data){
+      if(err){
+        p.reject(err,-1);
+      }else{
+        p.resolve(null,data);
+      }
+    });
+    return p;
+  },
   findById: function(aid){
       var _this = this,
     p = new Promise();
@@ -62,10 +74,10 @@ BlogSchema.statics = {
     });
     return p;
   },
-  findByCategory: function(cid){
+  findByCategory: function(cid,uid){
      var _this = this;
      p = new Promise();
-     _this.find({category:cid,isDelete:false},function(err,data ){
+     _this.find({category:cid,isDelete:false,userId:uid},function(err,data ){
         if (err) {
           p.reject(err,-1);
         }else {
@@ -74,10 +86,10 @@ BlogSchema.statics = {
      });
      return p;
   },
-  findByTag: function (tname) {
+  findByTag: function (tname,uid) {
     var _this = this;
      p = new Promise();
-     _this.find({tags:tname,isDelete:false},function(err,data ){
+     _this.find({tags:tname,isDelete:false,userId:uid},function(err,data ){
         if (err) {
           p.reject(err,-1);
         }else {

@@ -5,15 +5,24 @@
 var mongoose = require('mongoose');
 var router = require('koa-router')();
 var User = mongoose.model('User');
+var Category = mongoose.model("Category");
 var koaBody = require("koa-body")();
 var parse = require("co-body");
 var render = {};
 
 
 router.post('/user/login',koaBody,function *(next){
-      var body = {};
-       var data = yield User.login(this.request.body.account,this.request.body.passwd);
+       if(this.session.user!=undefined){
+         console.log('log from session');
+          this.body = {
+            result:1,
+            info:"success login",
+            data:this.session.user
+          }
+       }else{
+          var data = yield User.login(this.request.body.account,this.request.body.passwd);
        if(data.result){
+        this.session.user = data.user;
           this.body = {
             result:1,
             info:"success login",
@@ -25,6 +34,8 @@ router.post('/user/login',koaBody,function *(next){
             info:"fail to login"
           }
        }
+       }
+       
        
 });
 
@@ -51,6 +62,9 @@ router.post('/user/register',koaBody,
              result :1,
              info : "successful add"
            }
+           var cate =  new Category({ctitle:"默认分类"});
+           cate.userId = user._id;
+           yield cate.add();
         }else {
            body = {
              result: -1,
@@ -94,6 +108,11 @@ router.post("/user/update",koaBody,function * (next){
       info:"fail"
     }
   }*/
+})
+
+router.post("/user/logout",koaBody,function * (next){
+  this.session.user = undefined;
+  this.body = "ok";
 })
 
 module.exports = function(app,render){

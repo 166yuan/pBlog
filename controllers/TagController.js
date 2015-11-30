@@ -15,7 +15,7 @@ router.get('/tag/getAll',koaBody,function *(next){
 });
 
 router.post("/tag/getArticleBytag",koaBody,function*(next){
-	var result = yield Blog.findByTag(this.request.body.tname);
+	var result = yield Blog.findByTag(this.request.body.tname,this.session.user._id);
 	if(result){
 		this.body = {
 			result:1,

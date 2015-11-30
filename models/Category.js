@@ -8,6 +8,7 @@ var Schema = mongoose.Schema,
 
 //define category scheme
 var CategorySchema = new Schema({
+    userId:String,
   	ctitle:String,
     createTime: { type:Date ,default:Date.now },
     updateTime: { type:Date ,default:Date.now}
@@ -31,11 +32,11 @@ CategorySchema.methods = {
 }
 
 CategorySchema.statics = {
-	findByName:function(name){
-		return this.find({cname:name}).exec();
+	findByName:function(name,uid){
+		return this.find({cname:name,userId:uid}).exec();
 	},
-	findAll : function(){
-		return this.find().exec();
+	findAll : function(uid){
+		return this.find({userId:uid}).exec();
 	}
 }
 

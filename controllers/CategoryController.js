@@ -17,7 +17,8 @@ router.get('/category/test',function *(next){
 
 router.get("/category/all",function*(next){
 	var body = [];
-	var result = yield Category.findAll();
+    console.log(this.session.user._id);
+	var result = yield Category.findAll(this.session.user._id);
 	for (var i = 0; i < result.length; i++) {
 	 	body.push({
 	 		id:result[i]._id,
@@ -30,18 +31,19 @@ router.get("/category/all",function*(next){
 router.post("/category/add",koaBody,function*(next){
 	console.log(this.request.body);
 	var body = [];
-	var result = yield Category.findByName(this.request.body.ctitle);
+	var result = yield Category.findByName(this.request.body.ctitle,this.session.user._id);
 	if(result){
 		var cate = new Category({ctitle:this.request.body.ctitle});
+        cate.userId = this.session.user._id;
 		var a = yield cate.add();
 	}
 	 this.body = a; 
 });
 
-router.post("/category/getArticleByCate",koaBody,function*(next){
+router.post("/category/getArticleByCate",koaBody,function * (next){
 	var body = [];
 	var cid = this.request.body.cid;
-	var result = yield Blog.findByCategory(cid);
+	var result = yield Blog.findByCategory(cid,this.session.user._id);
 	this.body = result;
 });
 

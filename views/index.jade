@@ -11,11 +11,9 @@ body(ng-controller="IndexController")
 
 	div.wraper.clearfix
 		header
-			img.banner(src='img/logo.png')
-			nav.navbar
-				ul.navbar-menu.clearfix
-					li(ng-repeat='item in navMenu')
-						a(ui-sref="{{item.src}}") {{item.name}} 					
+			nav.logo
+				span
+					a(ui-sref="home") 首页 
 			nav.nav-top
 				ul(ng-show="!isLogin",ng-cloak)
 					li
@@ -28,7 +26,12 @@ body(ng-controller="IndexController")
 					li
 						a(href="javascript:void(0)",ui-sref="center") 个人中心
 					li
-						a(href="javascript:void(0)") 退出				
+						a(href="javascript:void(0)",ng-click="logout()") 退出
+			img.banner(src='')
+			nav.navbar(ng-show="isLogin")
+				ul.navbar-menu.clearfix
+					li(ng-repeat='item in navMenu')
+						a(ui-sref="{{item.src}}") {{item.name}}
 		div.main(ui-view)		 		
 	div.tooltip
 		a(ui-sref="publish")

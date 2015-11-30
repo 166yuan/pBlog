@@ -12,6 +12,8 @@ router.post("/blog/publish",koaBody,function* (next){
 	var articleData = this.request.body;
 	console.log(articleData);
 	var blog  = new Blog(articleData);
+    var user = this.session.user;
+    blog.userId = user._id;
 	for (var i = 0; i < articleData.tags.length; i++) {
 		var tag = yield Tag.findByName(articleData.tags[i]);
 		if(tag.length==0){
@@ -38,7 +40,8 @@ router.post("/blog/publish",koaBody,function* (next){
 })
 
 router.get("/blog/getAll",koaBody,function* (next){
-	var data = yield Blog.findAll();
+	var data = yield Blog.findAllByUser(this.session.user._id);
+
 	if(data){
 		this.body = {
 			result:1,
