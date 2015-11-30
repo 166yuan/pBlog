@@ -204,7 +204,7 @@
 				$http.post("/category/add",{
 				ctitle: info
 			}).success(function(data){
-				console.log(data);
+				$scope.category.push(data);
 			})
 			}
 			

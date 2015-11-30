@@ -92,15 +92,6 @@ aside{
 	font-size: .6rem;
 	text-align: center;
 }
-footer{
-	width: 100%;
-	text-align: center;
-	font-size: .3rem;
-	margin-top: 1rem;
-	background-color: #fff;
-	position: absolute;
-}
-
 .login-box,.register-box{
 	position: relative;
 	height: 5.6rem;

@@ -35,7 +35,7 @@ router.post("/category/add",koaBody,function*(next){
 		var cate = new Category({ctitle:this.request.body.ctitle});
 		var a = yield cate.add();
 	}
-	 this.body = "ok"; 
+	 this.body = a; 
 });
 
 router.post("/category/getArticleByCate",koaBody,function*(next){
