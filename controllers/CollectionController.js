@@ -12,7 +12,8 @@ var router = require('koa-router')();
 router.post("/collection/add",koaBody,function *(next){
 	var collection = new Collection({
 		BlogId:this.request.body.blogId
-	}); 
+	});
+	collection.userId = this.session.user._id; 
 	var result = yield collection.add();
 	if(result==1){
 		this.body = "ok";
@@ -20,7 +21,7 @@ router.post("/collection/add",koaBody,function *(next){
 });
 
 router.get("/collection/getAll",koaBody,function *(next){
-	var collections = yield Collection.find().exec();
+	var collections = yield Collection.find({userId:this.session.user._id}).exec();
 	var blogs = [];
 	for (var i = 0; i < collections.length; i++) {
 		blogs.push( yield Blog.findOne({_id:new Object(collections[i].BlogId)}));

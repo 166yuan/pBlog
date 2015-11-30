@@ -3,6 +3,8 @@ var path = require("path");
 var fs = require('fs'),
   parse = require('co-busboy');
 var render = {};
+var mongoose = require('mongoose');
+var Blog = mongoose.model("Blog");
 
 router.get('/',function *(next){
 	yield this.render("index.jade");
@@ -25,6 +27,18 @@ router.post('/upload',function*(next){
  console.log(fileNames);
  this.body = "img/"+newPath;
  /*this.redirect("/#/center");*/
+
+})
+
+router.get("/welcome",function*(next){
+  var data = yield Blog.findAll();
+  if(data){
+    this.body = {
+      result:1,
+      data:data,
+      info:"success get"
+    }
+  }
 
 })
 

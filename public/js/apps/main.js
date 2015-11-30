@@ -87,6 +87,13 @@
 			
 		}
 
+        $scope.logout = function ( ){
+            $http.post("/user/logout").then(function (data){
+                $scope.isLogin = false;
+                sessionStorage.removeItem("userInfo");
+            })
+        }
+
         $scope.$on('showAlert', function(e, info) {
             $scope.$broadcast("com-alert",info);
         }); 
@@ -99,8 +106,11 @@
         
 	}]);
 
-	app.controller('MainController', ['$scope', function ($scope) {
-		$scope.articles= [];
+	app.controller('MainController', ['$scope','$http', function ($scope,$http) {
+        //for personal
+		$scope.articles = [];
+        //for all
+        $scope.allArticles = [];
 		$scope.init = function(){
 			$scope.articles = [{
 				id:56,
@@ -111,6 +121,9 @@
 				"title":"阿瓦隆硬件",
 				date:"2015-06-05"
 			}];
+            $http.get("/welcome").success(function(data){
+                $scope.allArticles = data.data;
+            });
 		}
 		$scope.init();
 	}]);
@@ -131,7 +144,7 @@
             });
 		$scope.init = function( ){
 			$http.get("/category/all").success(function(data){
-				
+				console.log(data);
 				$scope.category = data;
                 $scope.publishData.category = data[0].id;
 			});

@@ -89,8 +89,8 @@ UserSchema.statics = {
     if(err){
       p.reject(err,-1);
     }else{
-      console.log(data.hashed_password);
-      console.log(_this.schema.methods.encrptPasswd(password, data.sha1));
+     /* console.log(data.hashed_password);
+      console.log(_this.schema.methods.encrptPasswd(password, data.sha1));*/
       p.resolve( null , { result: _this.schema.methods.encrptPasswd(password, data.sha1) === data.hashed_password,user:data});
     }
 

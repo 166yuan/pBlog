@@ -5,6 +5,7 @@ var fs = require("fs");
 var path = require('path');
 var join = path.join;
 var app = require('koa')();
+var session = require('koa-session');
 var static = require('koa-static');
 var mongoose = require('mongoose');
 var db = require("./config/database.js");
@@ -32,12 +33,13 @@ fs.readdirSync(join(__dirname, 'models')).forEach(function (file) {
 
 app.use(jade(path.join(__dirname, 'views')));
 app.use(static(__dirname+'/public'));
+app.keys = ["pblog"];
+app.use(session(app));
 
 /**
  *  init Controller
  */
  fs.readdirSync(join(__dirname, 'controllers')).forEach(function (file) {
- 	
  	if (~file.indexOf('.js')) require(join(__dirname, 'controllers', file))(app);
 });
 
