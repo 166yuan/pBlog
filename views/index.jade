@@ -33,7 +33,7 @@ body(ng-controller="IndexController")
 					li(ng-repeat='item in navMenu')
 						a(ui-sref="{{item.src}}") {{item.name}}
 		div.main(ui-view)		 		
-	div.tooltip
+	div.tooltip(ng-show="isLogin")
 		a(ui-sref="publish")
 			i.icon.iconfont(style='font-size:1.5rem') &#xe606		
 	div.modal(ng-if='showModal',ng-cloak)

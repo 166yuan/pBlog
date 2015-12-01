@@ -23,9 +23,10 @@ body{
 	right: 3rem;
 }
 .logo{
-	font-size: .3rem;
+	font-size: .4rem;
 	position: absolute;
-	top: 0;
+	top: .2rem;
+	left: .2rem;
 }
 .nav-top>ul>li{
 	float: left;
@@ -256,4 +257,7 @@ margin: 0;
 	border-radius: 50%;
 	left: 0;
 	top: 0;
+}
+.article-all{
+	font-size: .5rem;
 }

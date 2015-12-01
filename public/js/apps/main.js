@@ -91,6 +91,7 @@
             $http.post("/user/logout").then(function (data){
                 $scope.isLogin = false;
                 sessionStorage.removeItem("userInfo");
+                window.location.href = "/#/home";
             })
         }
 

@@ -12,15 +12,8 @@ var render = {};
 
 
 router.post('/user/login',koaBody,function *(next){
-       if(this.session.user!=undefined){
-         console.log('log from session');
-          this.body = {
-            result:1,
-            info:"success login",
-            data:this.session.user
-          }
-       }else{
-          var data = yield User.login(this.request.body.account,this.request.body.passwd);
+
+      var data = yield User.login(this.request.body.account,this.request.body.passwd);
        if(data.result){
         this.session.user = data.user;
           this.body = {
@@ -34,9 +27,7 @@ router.post('/user/login',koaBody,function *(next){
             info:"fail to login"
           }
        }
-       }
-       
-       
+  
 });
 
 
