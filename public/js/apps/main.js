@@ -95,6 +95,15 @@
             })
         }
 
+        $scope.init = function(){
+            if(sessionStorage.getItem("userInfo")){
+                var user = JSON.parse(sessionStorage.getItem("userInfo"));
+                $scope.username = user.nickname;
+                $scope.avatorUrl = user.avatorUrl;
+                $scope.isLogin = true;
+            }
+        }
+        $scope.init();
         $scope.$on('showAlert', function(e, info) {
             $scope.$broadcast("com-alert",info);
         }); 
@@ -113,15 +122,9 @@
         //for all
         $scope.allArticles = [];
 		$scope.init = function(){
-			$scope.articles = [{
-				id:56,
-				"title":"博克测试啊",
-				date:"2015-04-05"
-			},{
-				id:78,
-				"title":"阿瓦隆硬件",
-				date:"2015-06-05"
-			}];
+			$http.get("/blog/getAll").success(function(data){
+                $scope.articles = data.data;
+            });
             $http.get("/welcome").success(function(data){
                 $scope.allArticles = data.data;
             });
@@ -387,8 +390,8 @@
         	$http.post("/user/update",{user:$scope.userInfo}).success(function(){
         		$scope.$emit("showAlert","保存成功")
         		sessionStorage.setItem("userInfo",JSON.stringify($scope.userInfo));
-        		$scope.username = $scope.userInfo.nickname;
-		$scope.avatorUrl = $scope.userInfo.avatorUrl;
+        		$rootScope.username = $scope.userInfo.nickname;
+		$rootScope.avatorUrl = $scope.userInfo.avatorUrl;
         	})
         }
         $scope.triggerUpload = function ( ) {

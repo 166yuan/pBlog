@@ -11,7 +11,7 @@
 			<a ui-sref="adetail({articleId:item.id})" class="btitle">{{item.title}}</a>
 		</div>
 	</div>
-	<div class="article-all">
+	<div class="article-all" ng-show="!isLogin">
 		<div class="blog" ng-repeat="item in allArticles">
 			<span class="datatime">{{item.date}}</span>
 			<a ui-sref="adetail({articleId:item.id})" class="btitle">{{item.title}}</a>
