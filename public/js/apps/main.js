@@ -302,12 +302,8 @@
 
 		$scope.addNew = function ( ) {
 			console.log($scope.newCollection);
-			$http.post("/category/add",{ctitle:$scope.newCollection}).success(function(data){
-				if(data){
-					alert("添加成功");
-					window.location.reload();
-				}
-			});
+            sessionStorage.setItem("showInput","categoryController");
+            $scope.$emit("showInput","新分类");
 		}
 		$scope.triggerEditor = function(){
 			$scope.showInput = $scope.showInput==true?false:true;
@@ -319,6 +315,17 @@
 				$scope.ctitle = name;
 			});
 		}
+
+        $scope.$on("inputFinish",function (e,info) {
+            if(sessionStorage.getItem("showInput") === "categoryController"){
+                sessionStorage.removeItem("showInput");
+                $http.post("/category/add",{ctitle:info}).success(function(data){
+                if(data){
+                    window.location.reload();
+                }
+                });
+            }
+        })
 	}])
 
     app.controller('collectionController', ['$scope', '$http',function ($scope,$http) {

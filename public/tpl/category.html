@@ -1,12 +1,13 @@
 <div ng-controller="categoryController" class="category-area">
 <h4>分类目录</h4>
+<br>
 	<ul class="cateList clearfix">
-		<li ng-repeat="category in categorys"><a href="javascript:void(0)" ng-click="findById(category.id,category.ctitle)">{{category.ctitle}}</a></li>
+		<li class="cateList-item" ng-repeat="category in categorys"><a href="javascript:void(0)" ng-click="findById(category.id,category.ctitle)">{{category.ctitle}}</a> <a ng-click="" class="cateList-item-edit" href="javascript:void(0)"><i class="iconfont">&#xe604;</i></a> <a ng-click="" class="cateList-item-delete" href="#"><i class="iconfont">&#xe607;</i></a></li>
 	</ul>
-	<button class="btn btn-info" ng-click="triggerEditor()">编辑分类</button>
-	<div ng-show="showInput">
+	<button class="btn btn-info" ng-click="addNew()">新增分类</button>
+	<!-- <div ng-show="showInput">
 		<label for="cate">输入新的分类名称</label> <input type="text" ng-model="newCollection" name="cate" placeholder="新的分类名" /><button class="btn btn-success" ng-click="addNew()">保存</button>
-	</div>
+	</div> -->
 	<div>
 		<p ng-repeat="item in blogs"> <span></span> [{{ctitle}}]<a ui-sref="adetail({articleId:item._id})">{{item.title}}</a> </p>
 	</div>
