@@ -61,7 +61,7 @@ body{
 }
 .datatime{
 	color: #ddd;
-	font-size: smaller;
+	font-size: .4rem;
 	margin-left: .2rem;
 }
 .btitle{

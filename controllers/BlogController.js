@@ -91,6 +91,6 @@ module.exports = function(app,render){
 	app
     .use(router.routes())
     .use(router.allowedMethods());
-     
+    
      render = render;
 }

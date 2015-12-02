@@ -5,6 +5,7 @@ var fs = require('fs'),
 var render = {};
 var mongoose = require('mongoose');
 var Blog = mongoose.model("Blog");
+var User = mongoose.model("User");
 
 router.get('/',function *(next){
 	yield this.render("index.jade");
@@ -33,9 +34,17 @@ router.post('/upload',function*(next){
 router.get("/welcome",function*(next){
   var data = yield Blog.findAll();
   if(data){
+    var aricles = data;
+    for (var i = 0; i < data.length; i++) {
+       var uid = data[i].userId;
+       var user = yield User.findById(uid);
+       aricles[i]["nickname"] = user.nickname;
+        aricles[i]["account"] = user.account;
+    }
+    
     this.body = {
       result:1,
-      data:data,
+      data:aricles,
       info:"success get"
     }
   }

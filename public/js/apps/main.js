@@ -113,7 +113,9 @@
         $scope.$on('successInput', function(e, info) {
             $scope.$broadcast("inputFinish",info);
         });  
-        
+         $scope.$on('updateProfile', function(e) {
+            $scope.init();
+        }); 
 	}]);
 
 	app.controller('MainController', ['$scope','$http', function ($scope,$http) {
@@ -122,13 +124,20 @@
         //for all
         $scope.allArticles = [];
 		$scope.init = function(){
-			$http.get("/blog/getAll").success(function(data){
-                $scope.articles = data.data;
-            });
+			console.log('test init');
+			console.log($scope.isLogin);
             $http.get("/welcome").success(function(data){
                 $scope.allArticles = data.data;
             });
 		}
+		$scope.$watch("isLogin",function(){
+			if($scope.isLogin == true){
+				$http.get("/blog/getAll").success(function(data){
+                $scope.articles = data.data;
+            });
+			}
+			
+		});
 		$scope.init();
 	}]);
 

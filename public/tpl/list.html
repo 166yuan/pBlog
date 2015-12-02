@@ -7,14 +7,14 @@
 	</aside>
 	<div class="content" ng-show="isLogin">
 		<div class="blog" ng-repeat="item in articles">
-			<span class="datatime">{{item.date}}</span>
-			<a ui-sref="adetail({articleId:item.id})" class="btitle">{{item.title}}</a>
+			<span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span>
+			<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>
 		</div>
 	</div>
 	<div class="article-all" ng-show="!isLogin">
 		<div class="blog" ng-repeat="item in allArticles">
 			<span class="datatime">{{item.date}}</span>
-			<a ui-sref="adetail({articleId:item.id})" class="btitle">{{item.title}}</a>
+			<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>
 		</div>
 	</div>
 </div>
