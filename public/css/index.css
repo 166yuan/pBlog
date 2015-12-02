@@ -230,8 +230,12 @@ margin: 0;
 }
 .tagsList{
 	 font-size: .35rem;
+	 margin-top: .2rem;
 }
-
+.author{
+	font-size: .4rem;
+	margin-top: .2rem;
+}
 /*center css*/
 .imgWraper { position: relative;}
 .img-hover {

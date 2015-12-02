@@ -32,14 +32,17 @@ router.post('/upload',function*(next){
 })
 
 router.get("/welcome",function*(next){
+  'use strict';
   var data = yield Blog.findAll();
   if(data){
-    var aricles = data;
+    var aricles = [];
     for (var i = 0; i < data.length; i++) {
        var uid = data[i].userId;
        var user = yield User.findById(uid);
-       aricles[i]["nickname"] = user.nickname;
-        aricles[i]["account"] = user.account;
+       var tmp = data[i].toObject();
+       tmp.nickname = user.nickname;
+       tmp.account = user.account;
+       aricles.push(tmp);
     }
     
     this.body = {

@@ -98,11 +98,11 @@ ul,li{
 }
 footer{
   width: 100%;
+  height: .5rem;
   text-align: center;
   font-size: .3rem;
   margin-top: 1rem;
   background-color: #fff;
-  position: absolute;
   bottom: 0;
 }
 .modal{
@@ -187,7 +187,8 @@ form{
   width: 50%;
 }
 article{
-  text-indent: 50px; 
+  text-indent: 50px;
+  font-size: .35rem; 
 }
 .component{
   height: 100%;
@@ -209,4 +210,7 @@ article{
   background: #fff;
   text-align: center;
   padding-top: 1rem;
+}
+.pull-right{
+  float: right;
 }

@@ -12,7 +12,9 @@
 		</div>
 	</div>
 	<div class="article-all" ng-show="!isLogin">
+		<h5>所有博文</h5>
 		<div class="blog" ng-repeat="item in allArticles">
+			<span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span>
 			<span class="datatime">{{item.date}}</span>
 			<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>
 		</div>

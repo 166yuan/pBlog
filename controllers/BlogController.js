@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var router = require('koa-router')();
 var koaBody = require("koa-body")();
 var Blog = mongoose.model('Blog');
+var User = mongoose.model('User');
 var Tag = mongoose.model('Tag');
 
 router.post("/blog/publish",koaBody,function* (next){
@@ -54,9 +55,13 @@ router.get("/blog/getAll",koaBody,function* (next){
 router.post("/blog/getById",koaBody,function* (next){
 	var data = yield Blog.findById(this.request.body.aid);
 	if(data){
+		var user = yield User.findById(data.userId);
+		var blog = data.toObject();
+		blog.nickname = user.nickname;
+		blog.account = user.account;
 		this.body = {
 			result:1,
-			data:data,
+			data:blog,
 			info:"success get"
 		}
 	}else{

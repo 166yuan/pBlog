@@ -1,5 +1,7 @@
 <div ng-controller="detailController" class="articleWrap">
-	<h3>{{article.title}}<span class="datatime">（{{article.createTime|date:'yyyy-MM-dd hh:MM'}}）</span></h3>
+	<h3>{{article.title}}<span class="datatime">（{{article.createTime|date:'yyyy-MM-dd hh:MM'}}）</span>
+	</h3>
+	<span class="author pull-right">作者:{{article.nickname}}</span>
 	<div class="tagsList">
 		<span>标签：</span> <a href="" ng-repeat="item in article.tags">{{item}}</a>
 	</div>
