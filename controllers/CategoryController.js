@@ -47,6 +47,14 @@ router.post("/category/getArticleByCate",koaBody,function * (next){
 	this.body = result;
 });
 
+router.post("/category/update",koaBody,function * (next){
+	var id = this.request.body.cid;
+	var newName = this.request.body.name;
+	var cate = yield Category.findById(id);
+	cate.ctitle = newName;
+	cate.save();
+	this.body = "ok";
+});
 
 module.exports = function(app,render){
 	app

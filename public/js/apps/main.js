@@ -107,8 +107,8 @@
         $scope.$on('showAlert', function(e, info) {
             $scope.$broadcast("com-alert",info);
         }); 
-        $scope.$on('showInput', function(e, info) {
-            $scope.$broadcast("com-input",info);
+        $scope.$on('showInput', function(e, info,value) {
+            $scope.$broadcast("com-input",info,value);
         });
         $scope.$on('successInput', function(e, info) {
             $scope.$broadcast("inputFinish",info);
@@ -301,8 +301,7 @@
 		}
 
 		$scope.addNew = function ( ) {
-			console.log($scope.newCollection);
-            sessionStorage.setItem("showInput","categoryController");
+            sessionStorage.setItem("showInput","categoryController1");
             $scope.$emit("showInput","新分类");
 		}
 		$scope.triggerEditor = function(){
@@ -316,13 +315,35 @@
 			});
 		}
 
+		$scope.editCate = function (index,id){
+			console.log($scope.categorys[index]);
+			sessionStorage.setItem("showInput","categoryController2");
+			sessionStorage.setItem("cateId",id);
+			sessionStorage.setItem("cindex",index);
+			$scope.$emit("showInput","新名称",$scope.categorys[index].ctitle);
+		}
+
+		$scope.deleteCate = function (index,id){
+			if (confirm("确定要删除?")) {
+				
+			}
+		}
+
         $scope.$on("inputFinish",function (e,info) {
-            if(sessionStorage.getItem("showInput") === "categoryController"){
+            if(sessionStorage.getItem("showInput") === "categoryController1"){
                 sessionStorage.removeItem("showInput");
                 $http.post("/category/add",{ctitle:info}).success(function(data){
                 if(data){
                     window.location.reload();
                 }
+                });
+            }
+            if(sessionStorage.getItem("showInput") === "categoryController2"){
+                sessionStorage.removeItem("showInput");
+                $http.post("/category/update",{cid:sessionStorage.getItem("cateId"),name:info}).success(function(data){
+                	if(data){
+                		window.location.reload();
+                	}
                 });
             }
         })
@@ -468,6 +489,7 @@
         }
         $scope.cancel = function () {
             $scope.compoentBox = false;
+            $scope.inputTest = "";
         }
         /*事件监听区域*/
         $scope.$on("com-alert",function(e,info){
@@ -476,10 +498,13 @@
             $scope.alertBox = true;
         });
 
-         $scope.$on("com-input",function(e,info){
+         $scope.$on("com-input",function(e,info,value){
             $scope.compoentBox = true;
             $scope.info = info;
             $scope.inputBox = true;
+            if(value){
+            	$scope.inputTest = value;
+            }
         });
     }])
 	app.config(function ($stateProvider, $urlRouterProvider) {
