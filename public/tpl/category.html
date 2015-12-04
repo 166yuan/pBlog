@@ -5,11 +5,12 @@
 		<li class="cateList-item" ng-repeat="category in categorys"><a href="javascript:void(0)" ng-click="findById(category.id,category.ctitle)">{{category.ctitle}}</a> <a ng-if="$index!=0" ng-click="editCate($index,category.id)" class="cateList-item-edit" href="javascript:void(0)"><i class="iconfont">&#xe604;</i></a> <a ng-if="$index!=0" ng-click="" class="cateList-item-delete" href="#"><i class="iconfont">&#xe607;</i></a></li>
 	</ul>
 	<button class="btn btn-info" ng-click="addNew()">新增分类</button>
+	
 	<!-- <div ng-show="showInput">
 		<label for="cate">输入新的分类名称</label> <input type="text" ng-model="newCollection" name="cate" placeholder="新的分类名" /><button class="btn btn-success" ng-click="addNew()">保存</button>
 	</div> -->
 	<div>
-		<p ng-repeat="item in blogs"> <span></span> [{{ctitle}}]<a ui-sref="adetail({articleId:item._id})">{{item.title}}</a> </p>
+		<p ng-repeat="item in blogs"> <span></span> [{{ctitle}}]<span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span>&nbsp;&nbsp;<a ui-sref="adetail({articleId:item._id})">{{item.title}}</a> </p>
 	</div>
 	<!-- <button ng-click="addTest()">add Test</button> -->
 </div>		

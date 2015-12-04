@@ -1,10 +1,10 @@
 <div ng-controller="tagsController" class="tag-area">
 <h4>标签目录</h4>
 	<ul class="taglist clearfix">
-		<li ng-repeat="item in tags"><a href="javascript:void(0)" ng-click="findByTag(item.tname)">{{item.tname}}</a></li>
+		<li class="taglist-item" ng-repeat="item in tags"><a href="javascript:void(0)" ng-click="findByTag(item.tname)">{{item.tname}}</a></li>
 	</ul>
 	<div>
 		这里是标签文章列表
-		<p ng-repeat="item in blogs"><a href="">{{item.title}}</a></p>
+		<p ng-repeat="item in blogs"><span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span> &nbsp;&nbsp;<a ui-sref="adetail({articleId:item._id})">{{item.title}}</a></p>
 	</div>
 </div>

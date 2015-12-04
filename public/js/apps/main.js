@@ -323,6 +323,9 @@
 			$scope.$emit("showInput","新名称",$scope.categorys[index].ctitle);
 		}
 
+		$scope.testHW = function (){
+			alert(arguments[0]);
+		}
 		$scope.deleteCate = function (index,id){
 			if (confirm("确定要删除?")) {
 				

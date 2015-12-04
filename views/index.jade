@@ -13,7 +13,8 @@ body(ng-controller="IndexController")
 		header
 			nav.logo
 				span
-					a(ui-sref="home") 首页 
+					a(ui-sref="home") 首页|
+					a(href="javascript:void(0)") 博文目录
 			nav.nav-top
 				ul(ng-show="!isLogin",ng-cloak)
 					li
