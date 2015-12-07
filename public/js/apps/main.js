@@ -4,7 +4,8 @@
 };
 	var app = angular.module('app', ['ui.router','ngDuoshuo','ngFileUpload']);
 	app.controller('IndexController', ['$scope','$http', function ($scope,$http) {
-		$scope.showModal = $scope.showLogin = $scope.showRegister = $scope.isLogin = false;
+		$scope.showModal = $scope.showLogin = $scope.showRegister = $scope.isLogin =  false;
+        $scope.showWelcome = true;
 		$scope.username = "";
 		$scope.avatorUrl = "";
 		$scope.loginData = {
@@ -54,7 +55,7 @@
                     $scope.username = userInfo.nickname;
                     $scope.avatorUrl = userInfo.avatorUrl;
                     $scope.isLogin = true;
-                    $scope.showModal = $scope.showLogin = false;
+                    $scope.showModal = $scope.showLogin = $scope.showWelcome = false;
                 })
             }else{
                 alert("账号密码必须填写");
@@ -103,6 +104,10 @@
                 $scope.isLogin = true;
             }
         }
+        $scope.showAllBlog = function () {
+            console.log(this);
+            console.log($scope.showWelcome);
+        }
         $scope.init();
         $scope.$on('showAlert', function(e, info) {
             $scope.$broadcast("com-alert",info);
@@ -124,12 +129,11 @@
         //for all
         $scope.allArticles = [];
 		$scope.init = function(){
-			console.log('test init');
-			console.log($scope.isLogin);
             $http.get("/welcome").success(function(data){
                 $scope.allArticles = data.data;
             });
 		}
+        
 		$scope.$watch("isLogin",function(){
 			if($scope.isLogin == true){
 				$http.get("/blog/getAll").success(function(data){

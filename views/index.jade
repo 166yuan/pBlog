@@ -14,7 +14,7 @@ body(ng-controller="IndexController")
 			nav.logo
 				span
 					a(ui-sref="home") 首页|
-					a(href="javascript:void(0)") 博文目录
+					a(href="javascript:void(0)",ng-click="showAllBlog()") 博文目录
 			nav.nav-top
 				ul(ng-show="!isLogin",ng-cloak)
 					li
@@ -28,7 +28,7 @@ body(ng-controller="IndexController")
 						a(href="javascript:void(0)",ui-sref="center") 个人中心
 					li
 						a(href="javascript:void(0)",ng-click="logout()") 退出
-			img.banner(src='')
+			img.banner(src='img/logo.png')
 			nav.navbar(ng-show="isLogin")
 				ul.navbar-menu.clearfix
 					li(ng-repeat='item in navMenu')
