@@ -1,0 +1,85 @@
+doctype html
+html(lang='en',ng-app="app")
+head
+	meta(content='text/html;charset=utf-8',http-equiv='Content-Type')
+	title 个人博客
+	link(rel='stylesheet',href='/css/normalize.min.css')
+	link(rel='stylesheet',href='/font/iconfont.css')
+	link(rel='stylesheet',href='/css/common.css')
+	link(rel='stylesheet',href='/css/index.css')
+body(ng-controller="IndexController")
+
+	div.wraper.clearfix
+		header
+			nav.logo
+				span
+					a(ui-sref="home") 首页|
+					a(ui-sref="all") 博文目录
+			nav.nav-top
+				ul(ng-show="!isLogin",ng-cloak)
+					li
+						a.login-btn(href="javascript:void(0)",ng-click="triggerModal(1)") 登录
+					li 
+						a.register-btn(href='javascript:void(0)',ng-click="triggerModal(2)") 注册
+				ul(ng-show="isLogin",ng-cloak)
+					li
+						欢迎您，{{username}}
+					li
+						a(href="javascript:void(0)",ui-sref="center") 个人中心
+					li
+						a(href="javascript:void(0)",ng-click="logout()") 退出
+			img.banner(src='img/logo.png')
+			nav.navbar(ng-show="isLogin")
+				ul.navbar-menu.clearfix
+					li(ng-repeat='item in navMenu')
+						a(ui-sref="{{item.src}}") {{item.name}}
+		div.main(ui-view)		 		
+	div.tooltip(ng-show="isLogin")
+		a(ui-sref="publish")
+			i.icon.iconfont(style='font-size:1.5rem') &#xe606		
+	div.modal(ng-if='showModal',ng-cloak)
+		div.login-box#login(ng-if='showLogin')
+			div.nav-info
+				span 登录系统
+				span.close(ng-click="triggerModal(-1)")
+					i.iconfont &#xe605 
+			form
+				div.form-control
+					label 账号
+					input(type='text',ng-model="loginData.account",placeholder='输入账号',required)
+				div.form-control
+					label 密码
+					input(type='password',ng-model="loginData.passwd",placeholder='输入密码',required)
+				div.form-control
+					button.btn.btn-blue(ng-click="login()") 登录
+					button.btn.btn-default(ng-click="reset()") 重置
+				a(href='#',ng-click="triggerModal(1)").go-register 还没账号?去注册！
+		div.register-box#register(ng-if='showRegister')
+			div.nav-info
+				span 注册账号
+				span.close(ng-click="triggerModal(-1)")
+					li.iconfont &#xe605
+			form
+				div.form-control
+					label 账号
+					input(type='text',name='account',ng-model='registerData.account',placeholder='输入账号',required)
+				div.form-control
+					label 密码
+					input(type='password',name='password',ng-model='registerData.passwd',placeholder='输入密码',required)
+				div.form-control
+					label 确认密码
+					input(type='password',placeholder='重复密码',ng-model="registerData.repasswd",required)
+				div.form-control
+					button.btn.btn-blue(ng-click="register()") 注册
+					button.btn.btn-default(ng-click="reset()") 重置
+	div.component(ng-controller="compoentCtrl",ng-show='compoentBox',ng-include="'tpl/component.html'",ng-cloak)
+	footer
+		p Copyright © 2015 - 166yuan - Powered by Jekyll. Github									 	
+	script(src='js/libs/angular.min.js')
+	script(src="js/libs/angular-ui-router.js")
+	script(src="js/libs/angular-duoshuo.js")
+	script(src="ueditor/ueditor.config.js")
+	script(src="ueditor/ueditor.all.js")
+	script(src="js/apps/main.js")
+	script(src="js/libs/embed.js")
+	script(src="js/libs/ng-file-upload.min.js")

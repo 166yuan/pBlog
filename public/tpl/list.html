@@ -1,11 +1,11 @@
 <div ng-controller="MainController">
-	<aside ng-show="isLogin && !showWelcome">
+	<aside ng-show="isLogin && showAside">
 		<div class="avator-wraper">
 			<img src="{{avatorUrl}}" alt="" class="avator">
 		</div>
 		<p class="username">{{username}}</p> 	
 	</aside>
-	<div class="content" ng-if="isLogin && !showWelcome">
+	<div class="content" ng-if="isLogin && showContent">
 		<div class="blog" ng-repeat="item in articles">
 			<span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span>
 			<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>

@@ -7,8 +7,12 @@ var mongoose = require('mongoose');
 var Blog = mongoose.model("Blog");
 var User = mongoose.model("User");
 
+/*router.get('/',function *(next){
+	yield this.render("home.jade");
+});*/
+
 router.get('/',function *(next){
-	yield this.render("index.jade");
+  yield this.render("home.jade");
 });
 
 router.post('/upload',function*(next){

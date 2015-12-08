@@ -1,0 +1,19 @@
+<div ng-controller="allArtController" class="article-area">
+	<h4>所有博文</h4>
+	<div class="blog" ng-repeat="item in allArticles">
+		<span class="datatime">{{item.createTime|date:'yyyy-MM-dd hh:MM'}}</span>
+		<a ui-sref="adetail({articleId:item._id})" class="btitle">{{item.title}}</a>
+		<a ng-show="showEdit" href="javascript:void(0)" ng-click="edit($index,item._id)">[编辑]</a>
+		<a href="javascript:void(0)" ng-show="showEdit" ng-click="deleteById($index,item._id)">[删除]</a>
+	</div>
+	<ul class="pagination" ng-show="pagination.totalPage>1">
+		 <li ng-class="{true:'active'}[pagination.currentPage==1]"><a href="javascript:void(0)"
+                                                          ng-click="pagination.currentPage=1;load()">首页</a></li>
+        <li ng-class="{true:'disabled'}[pagination.currentPage==1]"><a href="javascript:void(0);" ng-click="prev()">上一页</a></li>
+        <li ng-repeat="page in pagination.pages"><a href="javascript:void(0);" ng-click="loadPage(page)">{{ page }}</a></li>
+        <li ng-class="{true:'disabled'}[pagination.currentPage==pagination.totalPage]"><a href="javascript:void(0);" ng-click="next()">下一页</a>
+        </li>
+        <li ng-class="{true:'active'}[pagination.currentPage==pagination.totalPage]"><a href="javascript:void(0)"
+                                                                  ng-click="pagination.currentPage=pagination.totalPage;load()">末页</a></li>
+	</ul>
+</div>

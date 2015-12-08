@@ -5,6 +5,7 @@
 	var app = angular.module('app', ['ui.router','ngDuoshuo','ngFileUpload']);
 	app.controller('IndexController', ['$scope','$http', function ($scope,$http) {
 		$scope.showModal = $scope.showLogin = $scope.showRegister = $scope.isLogin =  false;
+        $scope.showAside = $scope.showContent = false;
         $scope.showWelcome = true;
 		$scope.username = "";
 		$scope.avatorUrl = "";
@@ -56,6 +57,7 @@
                     $scope.avatorUrl = userInfo.avatorUrl;
                     $scope.isLogin = true;
                     $scope.showModal = $scope.showLogin = $scope.showWelcome = false;
+                    $scope.showAside = $scope.showContent = true;
                 })
             }else{
                 alert("账号密码必须填写");
@@ -102,11 +104,13 @@
                 $scope.username = user.nickname;
                 $scope.avatorUrl = user.avatorUrl;
                 $scope.isLogin = true;
+                $scope.showWelcome = false;
+                 $scope.showAside = $scope.showContent = true;
             }
         }
         $scope.showAllBlog = function () {
-            console.log(this);
-            console.log($scope.showWelcome);
+            $scope.showWelcome = true;
+            $scope.showContent = $scope.showAside = false;
         }
         $scope.init();
         $scope.$on('showAlert', function(e, info) {
@@ -129,6 +133,7 @@
         //for all
         $scope.allArticles = [];
 		$scope.init = function(){
+
             $http.get("/welcome").success(function(data){
                 $scope.allArticles = data.data;
             });
@@ -242,8 +247,9 @@
 	}])
 
 	app.controller('articleController', ['$scope','$http', function ($scope,$http) {
-		$scope.articles= [];
+		$scope.articles = $scope.allArticles = [] ;
 		$scope.showEdit = false;
+        $scope.showAll = false;
     	$scope.pagination = {
     		currentPage:1,
     		totalPage:1,
@@ -252,15 +258,25 @@
     		pages:[1]
     	}
 		$scope.init = function(){
-			$http.get("blog/getAll").success(function(data){
-				if(data.result==1){
-					$scope.articles = data.data;
-				}else{
-					alert("failure");
-				}
-			});
+            if(location.hash == "#/article"){
+                $scope.showAll = false;
+                $http.get("blog/getAll").success(function(data){
+                    if(data.result==1){
+                        $scope.articles = data.data;
 
+                    }else{
+                            alert("failure");
+                        }
+                });
+            }else{
+                $scope.showAll = true;
+                $http.get("/welcome").success(function(data){
+                    $scope.allArticles = data.data;
+                });
+            }
+            
 		}
+
 		$scope.load = function(){
 			console.log('load page');
 		}
@@ -287,6 +303,18 @@
 		}
 		$scope.init();
 	}])
+
+    app.controller('allArtController', ['$scope', "$http",function ($scope,$http) {
+        $scope.allArticles = [] ;
+        $http.get("/welcome").success(function(data){
+            if(data.result==1){
+                $scope.articles = data.data;
+                }else{
+                     alert("failure");
+                  }
+            });
+      
+    }])
 
 	app.controller('categoryController', ['$scope', "$http",function ($scope,$http) {
 		$scope.categorys = [];
@@ -327,9 +355,6 @@
 			$scope.$emit("showInput","新名称",$scope.categorys[index].ctitle);
 		}
 
-		$scope.testHW = function (){
-			alert(arguments[0]);
-		}
 		$scope.deleteCate = function (index,id){
 			if (confirm("确定要删除?")) {
 				
@@ -563,6 +588,11 @@
             url:"/center",
             templateUrl: "tpl/center.html",
             controller: "centerController"
+        })
+        .state("all", {
+            url:"/all",
+            templateUrl: "tpl/allArticle.html",
+            controller: "articleController"
         })
   
 });
