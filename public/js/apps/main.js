@@ -247,9 +247,8 @@
 	}])
 
 	app.controller('articleController', ['$scope','$http', function ($scope,$http) {
-		$scope.articles = $scope.allArticles = [] ;
+		$scope.articles = [] ;
 		$scope.showEdit = false;
-        $scope.showAll = false;
     	$scope.pagination = {
     		currentPage:1,
     		totalPage:1,
@@ -258,23 +257,9 @@
     		pages:[1]
     	}
 		$scope.init = function(){
-            if(location.hash == "#/article"){
-                $scope.showAll = false;
-                $http.get("blog/getAll").success(function(data){
-                    if(data.result==1){
-                        $scope.articles = data.data;
-
-                    }else{
-                            alert("failure");
-                        }
+                $http.get("/blog/getAll").success(function(data){
+                    $scope.articles = data.data;
                 });
-            }else{
-                $scope.showAll = true;
-                $http.get("/welcome").success(function(data){
-                    $scope.allArticles = data.data;
-                });
-            }
-            
 		}
 
 		$scope.load = function(){
@@ -302,16 +287,16 @@
 			});
 		}
 		$scope.init();
-	}])
+	}]);
 
     app.controller('allArtController', ['$scope', "$http",function ($scope,$http) {
         $scope.allArticles = [] ;
         $http.get("/welcome").success(function(data){
             if(data.result==1){
-                $scope.articles = data.data;
+                $scope.allArticles = data.data;
                 }else{
-                     alert("failure");
-                  }
+                     console.error("fail to load article");
+                }
             });
       
     }])
@@ -427,10 +412,16 @@
     app.controller('detailController', ['$scope','$stateParams', "$http","$sce",function ($scope,$stateParams,$http,$sce) {
         $scope.article = {};
         var aid = $stateParams.articleId;
+        $scope.isOwner = false;
         $http.post("/blog/getById",{aid:aid}).success(function(data){
         	if(data.result===1){
         		$scope.article = data.data;
         		$scope.article.content = $sce.trustAsHtml(data.data.content);
+                var user = JSON.parse(sessionStorage.getItem("userInfo"));
+                if(user){
+                    if(user.account == $scope.article.account) $scope.isOwner = true;
+                }
+                
         	}else{
         		alert("fail to get blog");
         	}
@@ -592,7 +583,7 @@
         .state("all", {
             url:"/all",
             templateUrl: "tpl/allArticle.html",
-            controller: "articleController"
+            controller: "allArtController"
         })
   
 });

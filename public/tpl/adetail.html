@@ -1,14 +1,14 @@
 <div ng-controller="detailController" class="articleWrap">
 	<h3>{{article.title}}<span class="datatime">（{{article.createTime|date:'yyyy-MM-dd hh:MM'}}）</span>
 	</h3>
-	<span ng-show="!isLogin" class="author pull-right">作者:{{article.nickname}}</span>
+	<span class="author pull-right">作者:{{article.nickname}}</span>
 	<div class="tagsList">
 		<span>标签：</span> <a href="" ng-repeat="item in article.tags">{{item}}</a>
 	</div>
 	<article data-ng-bind-html="article.content">
 		
 	</article>
-	<a href="javascript:void(0)" ng-click="addCollection(article._id)">收藏</a>
+	<a href="javascript:void(0)" ng-if="!isOwner&&isLogin" ng-click="addCollection(article._id)">收藏</a>
 	<div>
 		评论区
 		<div duoshuo="id"></div>
