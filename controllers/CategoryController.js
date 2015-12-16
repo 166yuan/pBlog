@@ -21,8 +21,8 @@ router.get("/category/all",function*(next){
 	var result = yield Category.findAll(this.session.user._id);
 	for (var i = 0; i < result.length; i++) {
 	 	body.push({
-	 		id:result[i]._id,
-	 		ctitle:result[i].ctitle
+	 		id:result[i].toObject()._id,
+	 		ctitle:result[i].toObject().ctitle
 	 	});
 	 }
 	 this.body = body; 
@@ -37,7 +37,7 @@ router.post("/category/add",koaBody,function*(next){
         cate.userId = this.session.user._id;
 		var a = yield cate.add();
 	}
-	 this.body = a; 
+	 this.body = a.toObject(); 
 });
 
 router.post("/category/getArticleByCate",koaBody,function * (next){
@@ -52,6 +52,20 @@ router.post("/category/update",koaBody,function * (next){
 	var newName = this.request.body.name;
 	var cate = yield Category.findById(id);
 	cate.ctitle = newName;
+	cate.save();
+	this.body = "ok";
+});
+
+router.post("/category/delete",koaBody,function*(next){
+	var cid = this.request.body.cid;
+	var cate = yield Category.findById(cid);
+	var defaultCate = yield Category.findByName("默认分类");
+	var arts = yield Blog.findByCategory(cid,this.session.user._id);
+	for (var i = 0; i < arts.length; i++) {
+		arts[i].category = defaultCate._id;
+		arts[i].save();
+	}
+	cate.isDelete = true;
 	cate.save();
 	this.body = "ok";
 });

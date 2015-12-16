@@ -10,7 +10,9 @@
 	</article>
 	<a href="javascript:void(0)" ng-if="!isOwner&&isLogin" ng-click="addCollection(article._id)">收藏</a>
 	<div>
-		评论区
-		<div duoshuo="id"></div>
-	</div>	
+		<a href="javascript:void(0)" ng-show="isLoad" ng-click="attention()">看不到评论框请点我</a>
+		<div id="SOHUCS" ></div>
+	</div>
+	<!--高速版-->
+
 </div>

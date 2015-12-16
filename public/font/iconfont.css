@@ -15,12 +15,12 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-yongyan:before { content: "\e600"; }
-.icon-shanchu:before { content: "\e607"; }
-.icon-jia:before { content: "\e601"; }
-.icon-lajitong:before { content: "\e602"; }
-.icon-32gougou:before { content: "\e606"; }
-.icon-jikediancanicon09:before { content: "\e603"; }
-.icon-xiugaiziliao:before { content: "\e604"; }
+.icon-biaoqian:before { content: "\e600"; }
+.icon-fabu:before { content: "\e606"; }
+.icon-24:before { content: "\e601"; }
+.icon-moban:before { content: "\e602"; }
+.icon-mima:before { content: "\e603"; }
+.icon-yonghu:before { content: "\e604"; }
 .icon-cha:before { content: "\e605"; }
-.icon-xiugai:before { content: "\e608"; }
+.icon-add:before { content: "\e607"; }
+.icon-maobi:before { content: "\e608"; }

@@ -11,8 +11,8 @@ var CategorySchema = new Schema({
     userId:String,
   	ctitle:String,
     createTime: { type:Date ,default:Date.now },
-    updateTime: { type:Date ,default:Date.now}
-    
+    updateTime: { type:Date ,default:Date.now},
+    isDelete: { type:Boolean,default:false }
 });
 
 CategorySchema.methods = {
@@ -33,10 +33,10 @@ CategorySchema.methods = {
 
 CategorySchema.statics = {
 	findByName:function(name,uid){
-		return this.find({cname:name,userId:uid}).exec();
+		return this.find({ctitle:name,userId:uid,isDelete:false}).exec();
 	},
 	findAll : function(uid){
-		return this.find({userId:uid}).exec();
+		return this.find({userId:uid,isDelete:false}).exec();
 	}
 }
 

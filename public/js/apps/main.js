@@ -239,7 +239,12 @@
 				$http.post("/category/add",{
 				ctitle: info
 			}).success(function(data){
-				$scope.category.push(data);
+                var newOne = {
+                    ctitle: data.ctitle,
+                     id:data._id
+                }
+                console.log($scope.category);
+				$scope.category.push(newOne);
 			})
 			}
 			
@@ -342,7 +347,9 @@
 
 		$scope.deleteCate = function (index,id){
 			if (confirm("确定要删除?")) {
-				
+				$http.post("/category/delete",{
+                    cid:id
+                })
 			}
 		}
 
@@ -413,6 +420,7 @@
         $scope.article = {};
         var aid = $stateParams.articleId;
         $scope.isOwner = false;
+        $scope.isLoad = false;
         $http.post("/blog/getById",{aid:aid}).success(function(data){
         	if(data.result===1){
         		$scope.article = data.data;
@@ -426,10 +434,18 @@
         		alert("fail to get blog");
         	}
         });
+
         $scope.addCollection = function(id){
         	$http.post("/collection/add",{blogId:id}).success(function( data){
         			console.log('success add');
         	});
+        }
+        var commet =  document.getElementById("SOHU_MAIN");
+            if(!commet){
+                $scope.isLoad = true;
+            }
+        $scope.attention = function(){
+            window.location.reload();
         }
     }])
     app.controller('aboutController', ['$scope', function ($scope) {

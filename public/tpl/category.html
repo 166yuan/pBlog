@@ -2,7 +2,7 @@
 <h4>分类目录</h4>
 <br>
 	<ul class="cateList clearfix">
-		<li class="cateList-item" ng-repeat="category in categorys"><a href="javascript:void(0)" ng-click="findById(category.id,category.ctitle)">{{category.ctitle}}</a> <a ng-if="$index!=0" ng-click="editCate($index,category.id)" class="cateList-item-edit" href="javascript:void(0)"><i class="iconfont">&#xe604;</i></a> <a ng-if="$index!=0" ng-click="deleteCate($index,category.id)" class="cateList-item-delete" href="#"><i class="iconfont">&#xe607;</i></a></li>
+		<li class="cateList-item" ng-repeat="category in categorys"><a href="javascript:void(0)" ng-click="findById(category.id,category.ctitle)">{{category.ctitle}}</a> <a ng-if="$index!=0" ng-click="editCate($index,category.id)" class="cateList-item-edit" href="javascript:void(0)"><i class="iconfont">&#xe606;</i></a> <a ng-if="$index!=0" ng-click="deleteCate($index,category.id)" class="cateList-item-delete" href="#"><i class="iconfont">&#xe605;</i></a></li>
 	</ul>
 	<button class="btn btn-info" ng-click="addNew()">新增分类</button>
 	
